@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<link rel="stylesheet" href="index.css">
+
+<body>
+
+    <form id="form" action="">
+        <h1>Lease Gen</h1>
+        <!-- One "tab" for each step in the form: -->
+        <div class="tab">LeaseHolders / Occupants
+            <p><input placeholder="Lease Holders" oninput="this.className = ''" name="leaseholders"></p>
+            <p><input placeholder="Occupants" oninput="this.className = ''" name="occupants"></p>
+            <p><input type="number" placeholder="Occupants #" oninput="this.className = ''" name="totalocc"></p>
+            <p><input type="number" placeholder="Adult #" oninput="this.className = ''" name="totaladul"></p>
+            <p><input type="number" placeholder="Children #" oninput="this.className = ''" name="totalchild"></p>
+        </div>
+        <div class="tab">Property Info
+            <p><input placeholder="Unit" oninput="this.className = ''" name="unit"></p>
+            <p><input placeholder="Street Name" oninput="this.className = ''" name="streetname"></p>
+            <p><input placeholder="Property" oninput="this.className = ''" name="property"></p>
+            <p><input placeholder="Owner" oninput="this.className = ''" name="propertyowner"></p>
+        </div>
+        <div class="tab">Lease Info
+            <p>
+                <select name="Lease Term" id="leaseterm">
+                    <option value="6">6</option>
+                    <option value="12">12</option>
+                </select>
+            </p>
+            <p><input type="date" placeholder="Lease Start" oninput="this.className = ''" name="leasestart"></p>
+            <p><input type="date" placeholder="Lease End" oninput="this.className = ''" name="leaseend"></p>
+            <p><input placeholder="Monthly Rent" oninput="this.className = ''" name="monthlyrent"></p>
+            <p><input placeholder="Rent Term" oninput="this.className = ''" name="rentterm"></p>
+            <p><input placeholder="Security Deposit" oninput="this.className = ''" name="secdepo"></p>
+        </div>
+        <div class="tab">Misc
+            <p>
+                <select name="Utilities" id="util">
+                    <option value="Yes">Water & Sewer</option>
+                    <option value="No">Not Included</option>
+                </select>Utilities
+            </p>
+            <p>
+                <select name="Washer & Dryer" id="washdryerselect">
+                    <option value="washdryeryes">Yes to both</option>
+                    <option value="washdryerno">No to both</option>
+                    <option value="washeronly">Yes to washer</option>
+                    <option value="dryeronly">Yes to dryer</option>
+                </select>Washer & Dryer
+            </p>
+            <p><input placeholder="Pet Type" oninput="this.className = ''" name="pettype"></p>
+            <p><input placeholder="Pet Deposit" oninput="this.className = ''" name="petdepo"></p>
+            <p><input placeholder="Concession" oninput="this.className = ''" name="concessionamo"></p>
+            <p><input placeholder="Concession Type" oninput="this.className = ''" name="concessiontype"></p>
+
+        </div>
+        <div style="overflow:auto;">
+            <div style="float:right;">
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                <input type="submit" value="Submit">
+            </div>
+        </div>
+        <!-- Circles which indicates the steps of the form: -->
+        <div style="text-align:center;margin-top:40px;">
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+        </div>
+    </form>
+
+    <script>
+        var currentTab = 0; // Current tab is set to be the first tab (0)
+        showTab(currentTab); // Display the current tab
+
+        function showTab(n) {
+            // This function will display the specified tab of the form...
+            var x = document.getElementsByClassName("tab");
+            x[n].style.display = "block";
+            //... and fix the Previous/Next buttons:
+            if (n == 0) {
+                document.getElementById("prevBtn").style.display = "none";
+            } else {
+                document.getElementById("prevBtn").style.display = "inline";
+            }
+            if (n == (x.length - 1)) {
+                document.getElementById("nextBtn").innerHTML = "Submit";
+            } else {
+                document.getElementById("nextBtn").innerHTML = "Next";
+            }
+            //... and run a function that will display the correct step indicator:
+            fixStepIndicator(n)
+        }
+
+        function nextPrev(n) {
+            // This function will figure out which tab to display
+            var x = document.getElementsByClassName("tab");
+            // Exit the function if any field in the current tab is invalid:
+            if (n == 1 && !validateForm()) return false;
+            // Hide the current tab:
+            x[currentTab].style.display = "none";
+            // Increase or decrease the current tab by 1:
+            currentTab = currentTab + n;
+            // if you have reached the end of the form...
+            if (currentTab >= x.length) {
+                // ... the form gets submitted:
+                document.getElementById("regForm").submit();
+                return false;
+            }
+            // Otherwise, display the correct tab:
+            showTab(currentTab);
+        }
+
+        function validateForm() {
+            // This function deals with validation of the form fields
+            var x, y, i, valid = true;
+            x = document.getElementsByClassName("tab");
+            y = x[currentTab].getElementsByTagName("input");
+            // A loop that checks every input field in the current tab:
+            for (i = 0; i < y.length; i++) {
+                // If a field is empty...
+                if (y[i].value == "") {
+                    // add an "invalid" class to the field:
+                    y[i].className += " invalid";
+                    // and set the current valid status to false
+                    valid = false;
+                }
+            }
+            // If the valid status is true, mark the step as finished and valid:
+            if (valid) {
+                document.getElementsByClassName("step")[currentTab].className += " finish";
+            }
+            return valid; // return the valid status
+        }
+
+        function fixStepIndicator(n) {
+            // This function removes the "active" class of all steps...
+            var i, x = document.getElementsByClassName("step");
+            for (i = 0; i < x.length; i++) {
+                x[i].className = x[i].className.replace(" active", "");
+            }
+            //... and adds the "active" class on the current step:
+            x[n].className += " active";
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+
+            const data = new FormData(event.target);
+
+            const value = Object.fromEntries(data.entries());
+
+            console.log({
+                value
+            });
+        }
+
+        const form = document.querySelector('form');
+        form.addEventListener('submit', handleSubmit);
+    </script>
+
+</body>
+
+</html>
