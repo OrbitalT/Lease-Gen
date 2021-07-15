@@ -31,8 +31,11 @@
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
+    "handlebars": "^4.7.7",
     "pdfjs": "^2.4.4",
-    "pdfjs-dist": "^2.8.335"
+    "pdfjs-dist": "^2.8.335",
+    "puppeteer": "^10.1.0",
+    "relaxed-json": "^1.0.3"
   },
   "config": {
     "forge": {
