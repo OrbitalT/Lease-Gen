@@ -32,6 +32,18 @@ input.invalid {
     background-color: #ffdddd;
 }
 
+select {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    font-family: Raleway;
+    border: 1px solid #aaaaaa;
+}
+
+select.invalid {
+    background-color: #ffdddd;
+}
+
 /* Hide all steps by default: */
 .tab {
     display: none;

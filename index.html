@@ -19,8 +19,38 @@
         <div class="tab">Property Info
             <p><input placeholder="Unit" oninput="this.className = ''" name="Unit"></p>
             <p><input placeholder="Street Name" oninput="this.className = ''" name="StreetName"></p>
-            <p><input placeholder="Property Name" oninput="this.className = ''" name="PropertyName"></p>
-            <p><input placeholder="Owner" oninput="this.className = ''" name="PropertyOwner"></p>
+            <!-- <p><input placeholder="Property Name" oninput="this.className = ''" name="PropertyName"></p> -->
+            <p>
+                <select name="PropertyName" id="PropertyName">
+                    <option value="Glenbrook East">Glenbrook East</option>
+                    <option value="Glenbrook West">Glenbrook West</option>
+                    <option value="Glenbrook West II">Glenbrook West II</option>
+                    <option value="Pickett Square">Pickett Square</option>
+                    <option value="Hawks Nest">Hawks Nest</option>
+                    <option value="Avalon East">Avalon East</option>
+                    <option value="Avalon West">Avalon West</option>
+                    <option value="Lenox East">Lenox East</option>
+                    <option value="Lenox West">Lenox West</option>
+                    <option value="Bradford Ridge">Bradford Ridge</option>
+                    <option value="Dupont Circle">Dupont Circle</option>
+                </select>
+            </p>
+            <p>
+                <select name="PropertyOwner" id="PropertyOwner">
+                    <option value="Ticon Properties LLC">Ticon Properties LLC</option>
+                    <option value="Ticon Inc">Ticon Inc - (Dupont Circle & 200 Andrews Road)</option>
+                    <option value="Hawks Nest LLC">Hawks Nest LLC</option>
+                    <option value="Lenox East LLC">Lenox East LLC</option>
+                    <option value="Lenox West LLC">Lenox West LLC</option>
+                    <option value="Glenbrook East LLC">Glenbrook East LLC</option>
+                    <option value="Avalon at Bridgefield Apartments LLC">Avalon at Bridgefield Apartments LLC - (Avalon East)</option>
+                    <option value="Mattie Inc">Mattie Inc - (Bradford Ridge)</option>
+                    <option value="Ticon Thomas Partnership">Ticon Thomas Partnership - (Pickett Square)</option>
+                    <option value="WJM Holdings II LLC">WJM Holdings II LLC - (Glenbrook West II)</option>
+                    <option value="WJM Holdings III LLC">WJM Holdings III LLC - (Glenbrook West)</option>
+                </select>
+            </p>
+            <!-- <p><input placeholder="Owner" oninput="this.className = ''" name="PropertyOwner"></p> -->
         </div>
         <div class="tab">Lease Info
             <p>
@@ -38,8 +68,8 @@
         <div class="tab">Misc
             <p>
                 <select name="Utilities" id="Utilities">
-                    <option value="Yes">Water & Sewer</option>
-                    <option value="No">Not Included</option>
+                    <option value="Included">Water & Sewer</option>
+                    <option value="Not Included">Not Included</option>
                 </select>Utilities
             </p>
             <p>
@@ -56,15 +86,18 @@
             <p><input placeholder="Concession Type" oninput="this.className = ''" name="ConcessionType"></p>
 
         </div>
+        <div class="tab">Save and Print
+            <input type="submit" value="Submit">
+        </div>
         <div style="overflow:auto;">
             <div style="float:right;">
                 <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
                 <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-                <input type="submit" value="Submit">
             </div>
         </div>
         <!-- Circles which indicates the steps of the form: -->
         <div style="text-align:center;margin-top:40px;">
+            <span class="step"></span>
             <span class="step"></span>
             <span class="step"></span>
             <span class="step"></span>
@@ -87,9 +120,11 @@
                 document.getElementById("prevBtn").style.display = "inline";
             }
             if (n == (x.length - 1)) {
-                document.getElementById("nextBtn").innerHTML = "Submit";
+                // document.getElementById("nextBtn").innerHTML = "Submit";
+                document.getElementById("nextBtn").style.display = "none";
             } else {
                 document.getElementById("nextBtn").innerHTML = "Next";
+                document.getElementById("nextBtn").style.display = "inline";
             }
             //... and run a function that will display the correct step indicator:
             fixStepIndicator(n)
@@ -161,14 +196,7 @@
             const leasedata = Object.fromEntries(data.entries());
             console.log(leasedata);
 
-            // const json = JSON.stringify(value);
-            // console.log(json);
-            // const unquoted = json.replace(/"([^"]+)":/g, '$1:');
-            // console.log(unquoted);
-
             ipcRenderer.send('leasedata', leasedata);
-
-            // fs.writeFileSync(path.resolve(__dirname, 'LeaseData.json'), JSON.stringify(value));
         }
 
         const form = document.querySelector('form');

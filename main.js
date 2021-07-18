@@ -46,18 +46,17 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
 
+// Recives Lease Data from index.html
 ipcMain.on('leasedata', function (e, leasedata) {
 
+  // Uses Lease Data and leasetemp.html to make Lease PDF
   async function createPDF(leasedata) {
 
     var templateHtml = fs.readFileSync(path.join(process.cwd(), 'leasetemp.html'), 'utf8');
     var template = handlebars.compile(templateHtml);
     var html = template(leasedata);
 
-    var milis = new Date();
-    milis = milis.getTime();
-
-    var pdfPath = path.join('pdf', `temp.pdf`);
+    var pdfPath = path.join('pdf', `${leasedata.LeaseHolders}-${leasedata.Unit}.pdf`);
 
     var options = {
       width: '1230px',
@@ -66,7 +65,9 @@ ipcMain.on('leasedata', function (e, leasedata) {
       displayHeaderFooter: false,
       margin: {
         top: "10px",
-        bottom: "30px"
+        bottom: "30px",
+        left: "70px",
+        right: "70px"
       },
       printBackground: true,
       path: pdfPath
