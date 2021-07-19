@@ -58,7 +58,8 @@ ipcMain.on('leasedata', function (e, leasedata) {
         right: "50px"
       },
       printBackground: true,
-      path: pdfPath
+      path: pdfPath,
+      format: "Letter"
     }
 
     const browser = await puppeteer.launch({
@@ -68,11 +69,14 @@ ipcMain.on('leasedata', function (e, leasedata) {
 
     var page = await browser.newPage();
 
-    await page.goto(`data:text/html;charset=UTF-8,${html}`, {
-      waitUntil: 'domcontentloaded'
-    });
+    // one of these lines below stops the pdf from fully generating
+
+    await page.goto(`data:text/html;charset=UTF-8,${html}`);
 
     await page.pdf(options);
+
+    //
+
     await browser.close();
   }
 
