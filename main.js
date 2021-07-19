@@ -59,18 +59,19 @@ ipcMain.on('leasedata', function (e, leasedata) {
     var pdfPath = path.join('pdf', `${leasedata.LeaseHolders}-${leasedata.Unit}.pdf`);
 
     var options = {
-      width: '1230px',
+      // width: '1230px',
       headerTemplate: "<p></p>",
       footerTemplate: "<p></p>",
       displayHeaderFooter: false,
       margin: {
         top: "10px",
         bottom: "30px",
-        left: "70px",
-        right: "70px"
+        left: "50px",
+        right: "50px"
       },
       printBackground: true,
-      path: pdfPath
+      path: pdfPath,
+      format: 'Letter'
     }
 
     const browser = await puppeteer.launch({
@@ -81,7 +82,7 @@ ipcMain.on('leasedata', function (e, leasedata) {
     var page = await browser.newPage();
 
     await page.goto(`data:text/html;charset=UTF-8,${html}`, {
-      waitUntil: 'networkidle0'
+      waitUntil: 'networkidle2'
     });
 
     await page.pdf(options);
