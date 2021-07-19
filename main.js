@@ -8,14 +8,6 @@ const fs = require('fs')
 const puppeteer = require('puppeteer')
 const handlebars = require("handlebars")
 
-// fs.readFile("./LeaseData.json", "utf8", (err, jsonString) => {
-//   if (err) {
-//     console.log("File read failed:", err);
-//     return;
-//   }
-//   console.log(jsonString);
-// });
-
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
 function createWindow() {
@@ -52,17 +44,13 @@ ipcMain.on('leasedata', function (e, leasedata) {
   // Uses Lease Data and leasetemp.html to make Lease PDF
   async function createPDF(leasedata) {
 
-    var templateHtml = fs.readFileSync(path.join(process.cwd(), 'leasetemp.html'), 'utf8');
+    var templateHtml = fs.readFileSync(path.join(process.cwd(), 'lease.html'), 'utf8');
     var template = handlebars.compile(templateHtml);
     var html = template(leasedata);
 
     var pdfPath = path.join('pdf', `${leasedata.LeaseHolders}-${leasedata.Unit}.pdf`);
 
     var options = {
-      // width: '1230px',
-      headerTemplate: "<p></p>",
-      footerTemplate: "<p></p>",
-      displayHeaderFooter: false,
       margin: {
         top: "10px",
         bottom: "30px",
@@ -70,8 +58,7 @@ ipcMain.on('leasedata', function (e, leasedata) {
         right: "50px"
       },
       printBackground: true,
-      path: pdfPath,
-      format: 'Letter'
+      path: pdfPath
     }
 
     const browser = await puppeteer.launch({
@@ -82,7 +69,7 @@ ipcMain.on('leasedata', function (e, leasedata) {
     var page = await browser.newPage();
 
     await page.goto(`data:text/html;charset=UTF-8,${html}`, {
-      waitUntil: 'networkidle2'
+      waitUntil: 'domcontentloaded'
     });
 
     await page.pdf(options);
