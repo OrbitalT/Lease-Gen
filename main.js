@@ -5,8 +5,9 @@ const {
 } = require('electron')
 const path = require('path')
 const fs = require('fs')
-const puppeteer = require('puppeteer')
+var pdf = require('html-pdf')
 const handlebars = require("handlebars")
+const homedir = require('os').homedir()
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
@@ -44,40 +45,86 @@ ipcMain.on('leasedata', function (e, leasedata) {
   // Uses Lease Data and leasetemp.html to make Lease PDF
   async function createPDF(leasedata) {
 
-    var templateHtml = fs.readFileSync(path.join(process.cwd(), 'lease.html'), 'utf8');
-    var template = handlebars.compile(templateHtml);
-    var html = template(leasedata);
+    const desktopDir = `${homedir}/Desktop`;
 
-    var pdfPath = path.join('pdf', `${leasedata.LeaseHolders}-${leasedata.Unit}.pdf`);
+    if (leasedata.ConcessionAmount === 'none' && leasedata.PetType === 'none') {
 
-    var options = {
-      margin: {
-        top: "10px",
-        bottom: "30px",
-        left: "50px",
-        right: "50px"
-      },
-      printBackground: true,
-      path: pdfPath,
-      format: "Letter"
+      var templateHtml = fs.readFileSync(path.join(process.cwd(), 'leasenopetnocon.html'), 'utf8');
+      var template = handlebars.compile(templateHtml);
+      var html = template(leasedata);
+
+      var pdfPath = path.join(desktopDir, `${leasedata.LeaseHolders}-${leasedata.Unit}.pdf`);
+
+      var options = {
+        format: 'Letter',
+        border: "5mm"
+      };
+
+      pdf.create(html, options).toFile(pdfPath, function (err, res) {
+        if (err) return console.log(err);
+        console.log(res);
+      });
+
+    } else {
+
+      if (leasedata.ConcessionAmount === 'none') {
+
+        var templateHtml = fs.readFileSync(path.join(process.cwd(), 'leasenocon.html'), 'utf8');
+        var template = handlebars.compile(templateHtml);
+        var html = template(leasedata);
+
+        var pdfPath = path.join(desktopDir, `${leasedata.LeaseHolders}-${leasedata.Unit}.pdf`);
+
+        var options = {
+          format: 'Letter',
+          border: "5mm"
+        };
+
+        pdf.create(html, options).toFile(pdfPath, function (err, res) {
+          if (err) return console.log(err);
+          console.log(res);
+        });
+
+      } else {
+
+        if (leasedata.PetType === 'none') {
+
+          var templateHtml = fs.readFileSync(path.join(process.cwd(), 'leasenopet.html'), 'utf8');
+          var template = handlebars.compile(templateHtml);
+          var html = template(leasedata);
+
+          var pdfPath = path.join(desktopDir, `${leasedata.LeaseHolders}-${leasedata.Unit}.pdf`);
+
+          var options = {
+            format: 'Letter',
+            border: "5mm"
+          };
+
+          pdf.create(html, options).toFile(pdfPath, function (err, res) {
+            if (err) return console.log(err);
+            console.log(res);
+          });
+
+        } else {
+
+          var templateHtml = fs.readFileSync(path.join(process.cwd(), 'lease.html'), 'utf8');
+          var template = handlebars.compile(templateHtml);
+          var html = template(leasedata);
+
+          var pdfPath = path.join(desktopDir, `${leasedata.LeaseHolders}-${leasedata.Unit}.pdf`);
+
+          var options = {
+            format: 'Letter',
+            border: "5mm"
+          };
+
+          pdf.create(html, options).toFile(pdfPath, function (err, res) {
+            if (err) return console.log(err);
+            console.log(res);
+          });
+        }
+      }
     }
-
-    const browser = await puppeteer.launch({
-      args: ['--no-sandbox'],
-      headless: true
-    });
-
-    var page = await browser.newPage();
-
-    // one of these lines below stops the pdf from fully generating
-
-    await page.goto(`data:text/html;charset=UTF-8,${html}`);
-
-    await page.pdf(options);
-
-    //
-
-    await browser.close();
   }
 
   createPDF(leasedata);

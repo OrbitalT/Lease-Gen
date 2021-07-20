@@ -2,40 +2,93 @@
 
 const fs = require("fs");
 const path = require("path");
-const puppeteer = require('puppeteer');
 const handlebars = require("handlebars");
+var pdf = require('html-pdf');
+const homedir = require('os').homedir();
 
 async function createPDF(data) {
 
-    var templateHtml = fs.readFileSync(path.join(process.cwd(), 'lease.html'), 'utf8');
-    var template = handlebars.compile(templateHtml);
-    var html = template(data);
+    const desktopDir = `${homedir}/Desktop`;
+    console.log(desktopDir);
 
-    var pdfPath = path.join('pdf', `${data.LeaseHolders}-${data.Unit}.pdf`);
+    if (data.ConcessionAmount === 'none' && data.PetType === 'none') {
 
-    var options = {
-        margin: {
-            top: "10px",
-            bottom: "30px",
-            left: "50px",
-            right: "50px"
-          },
-          printBackground: true,
-          path: pdfPath,
-          format: "Letter"
+        var templateHtml = fs.readFileSync(path.join(process.cwd(), 'leasenopetnocon.html'), 'utf8');
+        var template = handlebars.compile(templateHtml);
+        var html = template(data);
+
+        var pdfPath = path.join('pdf', `${data.LeaseHolders}-${data.Unit}.pdf`);
+
+        var options = {
+            format: 'Letter',
+            border: "5mm"
+        };
+
+        pdf.create(html, options).toFile(pdfPath, function (err, res) {
+            if (err) return console.log(err);
+            console.log(res);
+        });
+
+    } else {
+
+        if (data.ConcessionAmount === 'none') {
+
+            var templateHtml = fs.readFileSync(path.join(process.cwd(), 'leasenocon.html'), 'utf8');
+            var template = handlebars.compile(templateHtml);
+            var html = template(data);
+
+            var pdfPath = path.join('pdf', `${data.LeaseHolders}-${data.Unit}.pdf`);
+
+            var options = {
+                format: 'Letter',
+                border: "5mm"
+            };
+
+            pdf.create(html, options).toFile(pdfPath, function (err, res) {
+                if (err) return console.log(err);
+                console.log(res);
+            });
+
+        } else {
+
+            if (data.PetType === 'none') {
+
+                var templateHtml = fs.readFileSync(path.join(process.cwd(), 'leasenopet.html'), 'utf8');
+                var template = handlebars.compile(templateHtml);
+                var html = template(data);
+
+                var pdfPath = path.join('pdf', `${data.LeaseHolders}-${data.Unit}.pdf`);
+
+                var options = {
+                    format: 'Letter',
+                    border: "5mm"
+                };
+
+                pdf.create(html, options).toFile(pdfPath, function (err, res) {
+                    if (err) return console.log(err);
+                    console.log(res);
+                });
+
+            } else {
+
+                var templateHtml = fs.readFileSync(path.join(process.cwd(), 'lease.html'), 'utf8');
+                var template = handlebars.compile(templateHtml);
+                var html = template(data);
+
+                var pdfPath = path.join(desktopDir, `${data.LeaseHolders}-${data.Unit}.pdf`);
+
+                var options = {
+                    format: 'Letter',
+                    border: "5mm"
+                };
+
+                pdf.create(html, options).toFile(pdfPath, function (err, res) {
+                    if (err) return console.log(err);
+                    console.log(res);
+                });
+            }
+        }
     }
-
-    const browser = await puppeteer.launch({
-        args: ['--no-sandbox'],
-        headless: true
-    });
-
-    var page = await browser.newPage();
-
-    await page.goto(`data:text/html;charset=UTF-8,${html}`);
-
-    await page.pdf(options);
-    await browser.close();
 }
 
 const data = {
