@@ -2,6 +2,7 @@
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <link rel="stylesheet" href="index.css">
 
 <body>
@@ -38,18 +39,18 @@
             <p>
                 <select name="PropertyOwner" id="PropertyOwner">
                     <option value="Ticon Properties LLC">Ticon Properties LLC</option>
-                    <option value="Ticon Inc">Ticon Inc - (Dupont Circle & 200 Andrews Road)</option>
-                    <option value="Hawks Nest LLC">Hawks Nest LLC</option>
-                    <option value="Lenox East LLC">Lenox East LLC</option>
-                    <option value="Lenox West LLC">Lenox West LLC</option>
                     <option value="Glenbrook East LLC">Glenbrook East LLC</option>
+                    <option value="WJM Holdings III LLC">WJM Holdings III LLC - (Glenbrook West)</option>
+                    <option value="WJM Holdings II LLC">WJM Holdings II LLC - (Glenbrook West II)</option>
+                    <option value="Ticon Thomas Partnership">Ticon Thomas Partnership - (Pickett Square)</option>
+                    <option value="Hawks Nest LLC">Hawks Nest LLC</option>
                     <option value="Avalon at Bridgefield Apartments LLC">Avalon at Bridgefield Apartments LLC - (Avalon
                         East)</option>
                     <option value="Meca Properties LLC">Meca Properties LLC - (Avalon West)</option>
+                    <option value="Lenox East LLC">Lenox East LLC</option>
+                    <option value="Lenox West LLC">Lenox West LLC</option>
                     <option value="Mattie Inc">Mattie Inc - (Bradford Ridge)</option>
-                    <option value="Ticon Thomas Partnership">Ticon Thomas Partnership - (Pickett Square)</option>
-                    <option value="WJM Holdings II LLC">WJM Holdings II LLC - (Glenbrook West II)</option>
-                    <option value="WJM Holdings III LLC">WJM Holdings III LLC - (Glenbrook West)</option>
+                    <option value="Ticon Inc">Ticon Inc - (Dupont Circle & 200 Andrews Road)</option>
                 </select>
             </p>
             <!-- <p><input placeholder="Owner" oninput="this.className = ''" name="PropertyOwner"></p> -->
@@ -61,10 +62,11 @@
                     <option value="12">12</option>
                 </select>
             </p>
+            <!-- <p><input placeholder="Lease Term 6 or 12" oninput="this.className = ''" name="LeaseTerm" id="LeaseTerm"></p> -->
             <p><input placeholder="Lease Start" oninput="this.className = ''" name="LeaseStart"></p>
             <p><input placeholder="Lease End" oninput="this.className = ''" name="LeaseEnd"></p>
-            <p><input placeholder="Monthly Rent" oninput="this.className = ''" name="MonthlyRent"></p>
-            <p><input placeholder="Rent Term" oninput="this.className = ''" name="RentTerm"></p>
+            <p><input placeholder="Monthly Rent" oninput="this.className = ''" name="MonthlyRent" id="MonthlyRent"></p>
+            <p><input placeholder="Rent Term (Only Input Whole number no comma or dollar sign)" oninput="this.className = ''" onkeyup="addComma(this);" name="RentTerm" id="RentTerm"></p>
             <p><input placeholder="Security Deposit" oninput="this.className = ''" name="SecurityDeposit"></p>
         </div>
         <div class="tab">Misc
@@ -112,6 +114,19 @@
             <span class="step"></span>
         </div>
     </form>
+
+    <script>
+        $('#LeaseTerm, #MonthlyRent').change(function () {
+            var LeaseTerm = parseFloat($('#LeaseTerm').val()) || 0;
+            var MonthlyRent = parseFloat($('#MonthlyRent').val()) || 0;
+
+            $('#RentTerm').val('$' + LeaseTerm * MonthlyRent);
+        });
+
+        function addComma(RentTerm) {
+            RentTerm.value = RentTerm.value.replace(",", "").replace(/(\d+)(\d{3})/, "$1,$2");
+        }
+    </script>
 
     <script>
         var currentTab = 0; // Current tab is set to be the first tab (0)
