@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+:root {
+    font-variant-ligatures: none;
+  }
+
 body {
     background-color: #f1f1f1;
 }
