@@ -14,6 +14,8 @@ const {
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
+let mainWindow;
+
 function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 1000,
@@ -26,14 +28,24 @@ function createWindow() {
 
   mainWindow.loadFile('index.html')
 
+  mainWindow.once('ready-to-show', () => {
+    autoUpdater.checkForUpdatesAndNotify();
+  });
+
+  autoUpdater.on('update-available', () => {
+    mainWindow.webContents.send('update_available');
+  });
+  
+  autoUpdater.on('update-downloaded', () => {
+    mainWindow.webContents.send('update_downloaded');
+  });
+
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 }
 
 app.whenReady().then(() => {
   createWindow()
-
-  autoUpdater.checkForUpdatesAndNotify();
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
@@ -101,14 +113,6 @@ ipcMain.on('app_version', (event) => {
   event.sender.send('app_version', {
     version: app.getVersion()
   });
-});
-
-autoUpdater.on('update-available', () => {
-  mainWindow.webContents.send('update_available');
-});
-
-autoUpdater.on('update-downloaded', () => {
-  mainWindow.webContents.send('update_downloaded');
 });
 
 ipcMain.on('restart_app', () => {
