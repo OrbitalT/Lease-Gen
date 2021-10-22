@@ -33,8 +33,6 @@ function createWindow() {
 app.whenReady().then(() => {
   createWindow()
 
-  console.log(__dirname);
-
   autoUpdater.checkForUpdatesAndNotify();
 
   app.on('activate', function () {
@@ -54,38 +52,25 @@ ipcMain.on('leasedata', function (e, leasedata) {
 
     const desktopDir = `${homedir}/Desktop`;
 
-    // if (isDevelopment) {
-    //   lnpnc = path.join(__dirname, "/resources/leasenopetnocon.html");
-    //   lnc = path.join(__dirname, "/resources/leasenocon.html");
-    //   lnp = path.join(__dirname, "/resources/leasenopet.html");
-    //   lease = path.join(__dirname, "/resources/lease.html");
-    // } else {
-    //   lnpnc = path.join(process.resourcesPath, "resources/leasenopetnocon.html");
-    //   lnc = path.join(process.resourcesPath, "resources/leasenocon.html");
-    //   lnp = path.join(process.resourcesPath, "resources/leasenopet.html");
-    //   lease = path.join(process.resourcesPath, "resources/lease.html");
-    // }
-
     if (leasedata.ConcessionAmount === 'none' && leasedata.PetType === 'none') {
 
-      var templateHtml = fs.readFileSync(path.join(process.cwd(), __dirname + "/resources/leasenopetnocon.html"), 'utf8');
+      var templateHtml = fs.readFileSync(path.join(process.cwd(), "/resources/leasenopetnocon.html"), 'utf8');
 
     } else {
 
       if (leasedata.ConcessionAmount === 'none') {
 
-        var templateHtml = fs.readFileSync(path.join(process.cwd(), __dirname + "/resources/leasenocon.html"), 'utf8');
+        var templateHtml = fs.readFileSync(path.join(process.cwd(), "/resources/leasenocon.html"), 'utf8');
 
       } else {
 
         if (leasedata.PetType === 'none') {
 
-          var templateHtml = fs.readFileSync(path.join(process.cwd(), __dirname + "/resources/leasenopet.html"), 'utf8');
+          var templateHtml = fs.readFileSync(path.join(process.cwd(), "/resources/leasenopet.html"), 'utf8');
 
         } else {
 
-          var templateHtml = fs.readFileSync(path.join(process.cwd(), __dirname + "/resources/lease.html"), 'utf8');
-          console.log(templateHtml);
+          var templateHtml = fs.readFileSync(path.join(process.cwd(), "/resources/lease.html"), 'utf8');
 
         }
       }
