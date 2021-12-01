@@ -19,7 +19,7 @@ const office = 'glenbrook';
 function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 1200,
-    height: 1000,
+    height: 450,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
