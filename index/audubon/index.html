@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<link rel="stylesheet" href="index.css">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
+<body>
+
+    <form id="form" onsubmit="window.location.reload();" action="">
+        <h1 id="version"></h1>
+        <!-- One "tab" for each step in the form: -->
+        <div class="tab">LeaseHolders / Occupants
+            <p><input placeholder="Lease Holders" oninput="this.className = ''" name="LeaseHolders"></p>
+            <p><input placeholder="Occupants" oninput="this.className = ''" name="Occupants"></p>
+            <p><input type="number" placeholder="Occupants #" oninput="this.className = ''" name="TotalOccupants"></p>
+            <p><input type="number" placeholder="Adult #" oninput="this.className = ''" name="TotalAdults"></p>
+            <p><input type="number" placeholder="Children #" oninput="this.className = ''" name="TotalChildren"></p>
+        </div>
+        <div class="tab">Property Info
+            <p><input placeholder="Unit" oninput="this.className = ''" name="Unit"></p>
+            <p><input placeholder="Street Name" oninput="this.className = ''" name="StreetName"></p>
+            <!-- <p><input placeholder="Property Name" oninput="this.className = ''" name="PropertyName"></p> -->
+            <p>
+                <select name="PropertyName" id="PropertyName">
+                    <option value="Lochridge">Lochridge</option>
+                    <option value="Fox Chase">Fox Chase</option>
+                    <option value="Bentley Ridge">Bentley Ridge</option>
+                    <option value="Highgate Townhomes">Highgate Townhomes</option>
+                    <option value="Audubon Lake">Audubon Lake</option>
+                </select>
+            </p>
+            <p>
+                <select name="PropertyOwner" id="PropertyOwner">
+                    <option value="Ticon Properties LLC">Ticon Properties, LLC</option>
+                </select>
+            </p>
+            <!-- <p><input placeholder="Owner" oninput="this.className = ''" name="PropertyOwner"></p> -->
+        </div>
+        <div class="tab">Lease Info
+            <p>
+                <select name="LeaseTerm" id="LeaseTerm">
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                </select>
+            </p>
+            <p><input placeholder="Lease Start" oninput="this.className = ''" name="LeaseStart"></p>
+            <p><input placeholder="Lease End" oninput="this.className = ''" name="LeaseEnd"></p>
+            <p><input placeholder="Monthly Rent" oninput="this.className = ''" name="MonthlyRent"
+                    pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></p>
+            <p><input placeholder="Rent Term" oninput="this.className = ''" name="RentTerm"
+                    pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></p>
+            <p><input placeholder="Security Deposit" oninput="this.className = ''" name="SecurityDeposit"
+                    pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></p>
+        </div>
+        <div class="tab">Misc
+            <p>
+                <select name="Utilities" id="Utilities">
+                    <option value="Water & Sewer">Water & Sewer</option>
+                    <option value="No Utility">No Utility</option>
+                </select>Utilities
+            </p>
+            <p>
+                <select name="WasherAndDryer" id="WasherAndDryer">
+                    <option value="Included">Included</option>
+                    <option value="Not Included">Not Included</option>
+                    <option value="Washer Only">Yes to washer</option>
+                    <option value="Dryer Only">Yes to dryer</option>
+                </select>Washer & Dryer
+            </p>
+            <p><input placeholder="Pet Type" oninput="this.className = ''" name="PetType"></p>
+            <p><input placeholder="Pet Deposit" oninput="this.className = ''" name="PetDeposit"
+                    pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></p>
+            <p>
+                <select name="PetPayable" id="PetPayable">
+                    <option value="Already Paid">Already Paid</option>
+                    <option value="$100">$100</option>
+                </select>Pet Payable
+            </p>
+            <p><input placeholder="Concession" oninput="this.className = ''" name="ConcessionAmount"></p>
+            <p><input placeholder="Concession Type" oninput="this.className = ''" name="ConcessionType"></p>
+
+        </div>
+        <div class="tab">Save and Print
+            <input type="submit" value="Submit">
+        </div>
+        <div style="overflow:auto;">
+            <div style="float:right;">
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+            </div>
+        </div>
+        <!-- Circles which indicates the steps of the form: -->
+        <div style="text-align:center;margin-top:40px;">
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+        </div>
+        <div id="notification" class="hidden">
+            <p id="message"></p>
+            <button id="close-button" onClick="closeNotification()">
+                Close
+            </button>
+            <button id="restart-button" onClick="restartApp()" class="hidden">
+                Restart
+            </button>
+        </div>
+    </form>
+
+    <script>
+        $(document).ready(function () {
+            $(window).keydown(function (event) {
+                if (event.keyCode == 13) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $("input[data-type='currency']").on({
+            keyup: function () {
+                formatCurrency($(this));
+            },
+            blur: function () {
+                formatCurrency($(this), "blur");
+            }
+        });
+
+
+        function formatNumber(n) {
+            // format number 1000000 to 1,234,567
+            return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        }
+
+
+        function formatCurrency(input, blur) {
+            // appends $ to value, validates decimal side
+            // and puts cursor back in right position.
+
+            // get input value
+            var input_val = input.val();
+
+            // don't validate empty input
+            if (input_val === "") {
+                return;
+            }
+
+            // original length
+            var original_len = input_val.length;
+
+            // initial caret position 
+            var caret_pos = input.prop("selectionStart");
+
+            // check for decimal
+            if (input_val.indexOf(".") >= 0) {
+
+                // get position of first decimal
+                // this prevents multiple decimals from
+                // being entered
+                var decimal_pos = input_val.indexOf(".");
+
+                // split number by decimal point
+                var left_side = input_val.substring(0, decimal_pos);
+                var right_side = input_val.substring(decimal_pos);
+
+                // add commas to left side of number
+                left_side = formatNumber(left_side);
+
+                // validate right side
+                right_side = formatNumber(right_side);
+
+                // On blur make sure 2 numbers after decimal
+                if (blur === "blur") {
+                    right_side += "00";
+                }
+
+                // Limit decimal to only 2 digits
+                right_side = right_side.substring(0, 2);
+
+                // join number by .
+                input_val = "$" + left_side + "." + right_side;
+
+            } else {
+                // no decimal entered
+                // add commas to number
+                // remove all non-digits
+                input_val = formatNumber(input_val);
+                input_val = "$" + input_val;
+
+                // final formatting
+                if (blur === "blur") {
+                    input_val += ".00";
+                }
+            }
+
+            // send updated string to input
+            input.val(input_val);
+
+            // put caret back in the right position
+            var updated_len = input_val.length;
+            caret_pos = updated_len - original_len + caret_pos;
+            input[0].setSelectionRange(caret_pos, caret_pos);
+        }
+    </script>
+
+    <script>
+        var currentTab = 0; // Current tab is set to be the first tab (0)
+        showTab(currentTab); // Display the current tab
+
+        function showTab(n) {
+            // This function will display the specified tab of the form...
+            var x = document.getElementsByClassName("tab");
+            x[n].style.display = "block";
+            //... and fix the Previous/Next buttons:
+            if (n == 0) {
+                document.getElementById("prevBtn").style.display = "none";
+            } else {
+                document.getElementById("prevBtn").style.display = "inline";
+            }
+            if (n == (x.length - 1)) {
+                // document.getElementById("nextBtn").innerHTML = "Submit";
+                document.getElementById("nextBtn").style.display = "none";
+            } else {
+                document.getElementById("nextBtn").innerHTML = "Next";
+                document.getElementById("nextBtn").style.display = "inline";
+            }
+            //... and run a function that will display the correct step indicator:
+            fixStepIndicator(n)
+        }
+
+        function nextPrev(n) {
+            // This function will figure out which tab to display
+            var x = document.getElementsByClassName("tab");
+            // Exit the function if any field in the current tab is invalid:
+            if (n == 1 && !validateForm()) return false;
+            // Hide the current tab:
+            x[currentTab].style.display = "none";
+            // Increase or decrease the current tab by 1:
+            currentTab = currentTab + n;
+            // if you have reached the end of the form...
+            if (currentTab >= x.length) {
+                // ... the form gets submitted:
+                document.getElementById("regForm").submit();
+                return false;
+            }
+            // Otherwise, display the correct tab:
+            showTab(currentTab);
+        }
+
+        function validateForm() {
+            // This function deals with validation of the form fields
+            var x, y, i, valid = true;
+            x = document.getElementsByClassName("tab");
+            y = x[currentTab].getElementsByTagName("input");
+            // A loop that checks every input field in the current tab:
+            for (i = 0; i < y.length; i++) {
+                // If a field is empty...
+                if (y[i].value == "") {
+                    // add an "invalid" class to the field:
+                    y[i].className += " invalid";
+                    // and set the current valid status to false
+                    valid = false;
+                }
+            }
+            // If the valid status is true, mark the step as finished and valid:
+            if (valid) {
+                document.getElementsByClassName("step")[currentTab].className += " finish";
+            }
+            return valid; // return the valid status
+        }
+
+        function fixStepIndicator(n) {
+            // This function removes the "active" class of all steps...
+            var i, x = document.getElementsByClassName("step");
+            for (i = 0; i < x.length; i++) {
+                x[i].className = x[i].className.replace(" active", "");
+            }
+            //... and adds the "active" class on the current step:
+            x[n].className += " active";
+        }
+
+        const fs = require('fs');
+        const path = require('path');
+        const electron = require('electron');
+        const {
+            ipcRenderer
+        } = electron;
+
+        const version = document.getElementById('version');
+
+        ipcRenderer.send('app_version');
+        ipcRenderer.on('app_version', (event, arg) => {
+            ipcRenderer.removeAllListeners('app_version');
+            version.innerText = 'Lease Gen - Audubon v' + arg.version;
+        });
+
+        const notification = document.getElementById('notification');
+        const message = document.getElementById('message');
+        const restartButton = document.getElementById('restart-button');
+
+        ipcRenderer.on('update_available', () => {
+            ipcRenderer.removeAllListeners('update_available');
+            message.innerText = 'A new update is available. Downloading now...';
+            notification.classList.remove('hidden');
+        });
+
+        ipcRenderer.on('update_downloaded', () => {
+            ipcRenderer.removeAllListeners('update_downloaded');
+            message.innerText = 'Update Downloaded. It will be installed on restart. Restart now?';
+            restartButton.classList.remove('hidden');
+            notification.classList.remove('hidden');
+        });
+
+        function closeNotification() {
+            notification.classList.add('hidden');
+        }
+
+        function restartApp() {
+            ipcRenderer.send('restart_app');
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+
+            const data = new FormData(event.target);
+
+            const leasedata = Object.fromEntries(data.entries());
+            console.log(leasedata);
+
+            ipcRenderer.send('leasedata', leasedata);
+        }
+
+        const form = document.querySelector('form');
+        form.addEventListener('submit', handleSubmit);
+    </script>
+
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 {
   "name": "lease-gen",
-  "version": "1.2.0",
+  "version": "1.2.5",
   "description": "Lease Gen",
   "main": "main.js",
   "scripts": {

@@ -14,12 +14,12 @@ const {
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
-let mainWindow;
+const office = 'glenbrook';
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 800,
+    width: 1200,
+    height: 1000,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -66,23 +66,23 @@ ipcMain.on('leasedata', function (e, leasedata) {
 
     if (leasedata.ConcessionAmount === 'none' && leasedata.PetType === 'none') {
 
-      var templateHtml = fs.readFileSync(path.join(process.cwd(), "/resources/leasenopetnocon.html"), 'utf8');
+      var templateHtml = fs.readFileSync(path.join(process.cwd(), "/resources/" + office + "/leasenopetnocon.html"), 'utf8');
 
     } else {
 
       if (leasedata.ConcessionAmount === 'none') {
 
-        var templateHtml = fs.readFileSync(path.join(process.cwd(), "/resources/leasenocon.html"), 'utf8');
+        var templateHtml = fs.readFileSync(path.join(process.cwd(), "/resources/" + office + "/leasenocon.html"), 'utf8');
 
       } else {
 
         if (leasedata.PetType === 'none') {
 
-          var templateHtml = fs.readFileSync(path.join(process.cwd(), "/resources/leasenopet.html"), 'utf8');
+          var templateHtml = fs.readFileSync(path.join(process.cwd(), "/resources/" + office + "/leasenopet.html"), 'utf8');
 
         } else {
 
-          var templateHtml = fs.readFileSync(path.join(process.cwd(), "/resources/lease.html"), 'utf8');
+          var templateHtml = fs.readFileSync(path.join(process.cwd(), "/resources/" + office + "/lease.html"), 'utf8');
 
         }
       }
