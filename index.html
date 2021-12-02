@@ -15,6 +15,7 @@
 
         <div class="row">
             <div class="col-50">
+                Occupant Info
                 <div class="row">
                     <p><input placeholder="Lease Holders" oninput="this.className = ''" name="LeaseHolders"></p>
                     <p><input placeholder="Occupants" oninput="this.className = ''" name="Occupants"></p>
@@ -26,10 +27,10 @@
                     <p><input type="number" placeholder="Children #" oninput="this.className = ''" name="TotalChildren">
                     </p>
                 </div>
-
+                Lease Term Info
                 <div class="row">
                     <p>
-                        <select name="LeaseTerm" id="LeaseTerm">
+                        <select name="LeaseTerm" id="LeaseTerm" onchange="update()">
                             <option value="6">6</option>
                             <option value="7">7</option>
                             <option value="8">8</option>
@@ -43,6 +44,7 @@
                         </select>
                     </p>
                     <p><input placeholder="Lease Start" oninput="this.className = ''" name="LeaseStart"></p>
+                    <p><input placeholder="Lease End" oninput="this.className = ''" id="LeaseEnd" name="LeaseEnd"></p>
                 </div>
                 <div class="row">
                     <p><input placeholder="Monthly Rent" oninput="this.className = ''" name="MonthlyRent"
@@ -53,7 +55,7 @@
             </div>
 
             <div class="col-50">
-
+                Property Info
                 <div class="row">
                     <p><input placeholder="Unit" oninput="this.className = ''" name="Unit"></p>
                     <p><input placeholder="Street Name" oninput="this.className = ''" name="StreetName"></p>
@@ -61,22 +63,11 @@
                 <div class="row">
                     <p>
                         <select name="PropertyName" id="PropertyName">
-                            <option value="Glenbrook East">Glenbrook East</option>
-                            <option value="Glenbrook West">Glenbrook West</option>
-                            <option value="Glenbrook West II">Glenbrook West II</option>
-                            <option value="Pickett Square">Pickett Square</option>
-                            <option value="Hawks Nest">Hawks Nest</option>
-                            <option value="Avalon East">Avalon East</option>
-                            <option value="Avalon West">Avalon West</option>
-                            <option value="Lenox East">Lenox East</option>
-                            <option value="Lenox West">Lenox West</option>
-                            <option value="Bradford Ridge">Bradford Ridge</option>
-                            <option value="Dupont Circle">Dupont Circle</option>
                         </select>
                     </p>
                     <p>
                         <select name="PropertyOwner" id="PropertyOwner">
-                            <option value="Ticon Properties LLC">Ticon Properties LLC</option>
+                            <!-- <option value="Ticon Properties LLC">Ticon Properties LLC</option>
                             <option value="Glenbrook East LLC">Glenbrook East LLC</option>
                             <option value="WJM Holdings III LLC">WJM Holdings III LLC - (Glenbrook West)</option>
                             <option value="WJM Holdings II LLC">WJM Holdings II LLC - (Glenbrook West II)</option>
@@ -90,10 +81,11 @@
                             <option value="Lenox East LLC">Lenox East LLC</option>
                             <option value="Lenox West LLC">Lenox West LLC</option>
                             <option value="Mattie Inc">Mattie Inc - (Bradford Ridge)</option>
-                            <option value="Ticon Inc">Ticon Inc - (Dupont Circle & 200 Andrews Road)</option>
+                            <option value="Ticon Inc">Ticon Inc - (Dupont Circle & 200 Andrews Road)</option> -->
                         </select>
                     </p>
                 </div>
+                Extra Info
                 <div class="row">
                     <p>
                         <select name="Utilities" id="Utilities">
@@ -126,21 +118,71 @@
             </div>
 
         </div>
-        <p id="spanDate"></p>
-        <input style="width: 25%; float: right;" type="submit" value="Submit">
+        <select style="width: 24%; float: right;" name="Office" id="Office" onchange="getOffice()">
+            <option value="glenbrook">Glenbrook</option>
+            <option value="pineridge">Pine Ridge</option>
+            <option value="audubon">Audubon</option>
+            <!-- <option value="lancaster">Lancaster</option> -->
+        </select>
+        <input style="width: 23%; float: right;" type="submit" value="Submit">
     </form>
 
     <script>
-        var months = ['01', '02', '03', '04', '05', '06', '07',
-            '08', '09', '10', '11', '12'
-        ];
+        function getOffice() {
+            var x = document.getElementById("Office").value;
+            var propNames;
+            if (x === "glenbrook") {
+                propNames = ["Glenbrook East", "Glenbrook West", "Glenbrook West II", "Pickett Square", "Hawks Nest",
+                    "Avalon East", "Avalon West", "Lenox East", "Lenox West", "Bradford Ridge", "Dupont Circle"
+                ];
+                propOwners = ["Ticon Properties LLC", "Glenbrook East LLC", "WJM Holdings II LLC",
+                    "WJM Holdings III LLC", "Ticon Thomas Partnership", "Avalon at Bridgefield Apartments LLC",
+                    "Meca Properties LLC", "Lenox East LLC", "Lenox West LLC", "Mattie Inc", "Ticon Inc"
+                ]
+            } else if (x === "pineridge") {
+                propNames = ["Pine Ridge", "Taylor's Pond", "Sutton Station Residential"]
+                propOwners = ["Ticon Properties LLC"]
+            } else if (x === "audubon") {
+                propNames = ["Audubon Lake", "Fox Chase", "Lochridge", "Bentley Ridge", "Highgate Townhomes"]
+                propOwners = ["Ticon Properties LLC"]
+            }
+            var propN = ""
+            var propO = ""
+            for (var item of propNames) {
+                propN += "<option>" + item + "</option>"
+            }
+            for (var item of propOwners) {
+                propO += "<option>" + item + "</option>"
+            }
+            document.getElementById("PropertyName").innerHTML = propN;
+            document.getElementById("PropertyOwner").innerHTML = propO;
+        }
 
-        var tomorrow = new Date();
+        getOffice()
+    </script>
 
-        tomorrow.setTime(tomorrow.getTime() + (1000 * 3600 * 24));
-        
-        document.getElementById("spanDate").innerHTML = months[tomorrow.getMonth()] + "/" + tomorrow.getDate() + "/" +
-            tomorrow.getFullYear();
+    <script>
+        function update() {
+            // Broken, does not return readable number for the computer to read
+            var endDate = document.getElementById("LeaseTerm").value;
+
+            console.log(endDate);
+
+            var months = ['01', '02', '03', '04', '05', '06', '07',
+                '08', '09', '10', '11', '12'
+            ];
+
+            var currentDate = new Date();
+
+            currentDate.setMonth(currentDate.getMonth() + endDate);
+
+            console.log(currentDate);
+
+            document.getElementById("LeaseEnd").value = months[currentDate.getMonth()] + "/" + currentDate.getDate() +
+                "/" + currentDate.getFullYear();
+        }
+
+        update();
     </script>
 
     <script>
@@ -254,7 +296,7 @@
         ipcRenderer.send('app_version');
         ipcRenderer.on('app_version', (event, arg) => {
             ipcRenderer.removeAllListeners('app_version');
-            version.innerText = 'Lease Gen - Glenbrook v' + arg.version;
+            version.innerText = 'Lease Gen - v' + arg.version;
         });
 
         const notification = document.getElementById('notification');
