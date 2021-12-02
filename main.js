@@ -14,8 +14,6 @@ const {
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
-const office = 'glenbrook';
-
 function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 1200,
@@ -58,6 +56,8 @@ app.on('window-all-closed', function () {
 
 // Recives Lease Data from index.html
 ipcMain.on('leasedata', function (e, leasedata) {
+
+  const office = leasedata.Office;
 
   // Uses Lease Data and leasetemp.html to make Lease PDF
   async function createPDF(leasedata) {
