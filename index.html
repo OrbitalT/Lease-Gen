@@ -12,7 +12,6 @@
 
     <form id="form" onsubmit="window.location.reload();" action="">
         <h1 id="version"></h1>
-
         <div class="row">
             <div class="col-50">
                 Occupant Info
@@ -49,6 +48,8 @@
                 <div class="row">
                     <p><input placeholder="Monthly Rent" oninput="this.className = ''" name="MonthlyRent"
                             pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></p>
+                    <p><input placeholder="Rent Term" oninput="this.className = ''" name="RentTerm"
+                            pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></p>
                     <p><input placeholder="Security Deposit" oninput="this.className = ''" name="SecurityDeposit"
                             pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></p>
                 </div>
@@ -67,21 +68,6 @@
                     </p>
                     <p>
                         <select name="PropertyOwner" id="PropertyOwner">
-                            <!-- <option value="Ticon Properties LLC">Ticon Properties LLC</option>
-                            <option value="Glenbrook East LLC">Glenbrook East LLC</option>
-                            <option value="WJM Holdings III LLC">WJM Holdings III LLC - (Glenbrook West)</option>
-                            <option value="WJM Holdings II LLC">WJM Holdings II LLC - (Glenbrook West II)</option>
-                            <option value="Ticon Thomas Partnership">Ticon Thomas Partnership - (Pickett Square)
-                            </option>
-                            <option value="Hawks Nest LLC">Hawks Nest LLC</option>
-                            <option value="Avalon at Bridgefield Apartments LLC">Avalon at Bridgefield Apartments LLC -
-                                (Avalon
-                                East)</option>
-                            <option value="Meca Properties LLC">Meca Properties LLC - (Avalon West)</option>
-                            <option value="Lenox East LLC">Lenox East LLC</option>
-                            <option value="Lenox West LLC">Lenox West LLC</option>
-                            <option value="Mattie Inc">Mattie Inc - (Bradford Ridge)</option>
-                            <option value="Ticon Inc">Ticon Inc - (Dupont Circle & 200 Andrews Road)</option> -->
                         </select>
                     </p>
                 </div>
@@ -116,29 +102,40 @@
                     <p><input placeholder="Concession Type" oninput="this.className = ''" name="ConcessionType"></p> -->
                 </div>
             </div>
-
         </div>
+        <input style="width: 23%; float: right;" type="submit" value="Submit">
         <select style="width: 24%; float: right;" name="Office" id="Office" onchange="getOffice()">
             <option value="glenbrook">Glenbrook</option>
             <option value="pineridge">Pine Ridge</option>
             <option value="audubon">Audubon</option>
             <!-- <option value="lancaster">Lancaster</option> -->
         </select>
-        <input style="width: 23%; float: right;" type="submit" value="Submit">
     </form>
 
     <script>
         function getOffice() {
             var x = document.getElementById("Office").value;
             var propNames;
+            var propOwners;
             if (x === "glenbrook") {
                 propNames = ["Glenbrook East", "Glenbrook West", "Glenbrook West II", "Pickett Square", "Hawks Nest",
                     "Avalon East", "Avalon West", "Lenox East", "Lenox West", "Bradford Ridge", "Dupont Circle"
                 ];
-                propOwners = ["Ticon Properties LLC", "Glenbrook East LLC", "WJM Holdings II LLC",
-                    "WJM Holdings III LLC", "Ticon Thomas Partnership", "Avalon at Bridgefield Apartments LLC",
-                    "Meca Properties LLC", "Lenox East LLC", "Lenox West LLC", "Mattie Inc", "Ticon Inc"
-                ]
+                propOwners = {
+                    'THIS IS WRONG PLEASE CHANGE': 'Property Owner',
+                    'Ticon Properties LLC': 'Ticon Properties LLC',
+                    'Glenbrook East LLC': 'Glenbrook East',
+                    'WJM Holdings II LLC': 'Glenbrook West II',
+                    'WJM Holdings III LLC': 'Glenbrook West',
+                    'Ticon Thomas Partnership': 'Pickett Square',
+                    'Hawks Nest LLC': 'Hawks Nest',
+                    'Avalon at Bridgefield Apartments LLC': 'Avalon East',
+                    'Meca Properties LLC': 'Avalon West',
+                    'Lenox East LLC': 'Lenox East',
+                    'Lenox West LLC': 'Lenox West',
+                    'Mattie Inc': 'Bradford Ridge',
+                    'Ticon Inc': 'Dupont Circle & 200 Andrews Road'
+                }
             } else if (x === "pineridge") {
                 propNames = ["Pine Ridge", "Taylor's Pond", "Sutton Station Residential"]
                 propOwners = ["Ticon Properties LLC"]
@@ -151,8 +148,15 @@
             for (var item of propNames) {
                 propN += "<option>" + item + "</option>"
             }
-            for (var item of propOwners) {
-                propO += "<option>" + item + "</option>"
+
+            if (x === "glenbrook") {
+                for (var item in propOwners) {
+                    propO += "<option value=" + `${item}` + ">" + `${propOwners[item]}` + "</option>"
+                }
+            } else {
+                for (var item of propOwners) {
+                    propO += "<option>" + item + "</option>"
+                }
             }
             document.getElementById("PropertyName").innerHTML = propN;
             document.getElementById("PropertyOwner").innerHTML = propO;
