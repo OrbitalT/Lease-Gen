@@ -46,10 +46,9 @@
                     <p><input placeholder="Lease End" oninput="this.className = ''" id="LeaseEnd" name="LeaseEnd"></p>
                 </div>
                 <div class="row">
-                    <p><input placeholder="Monthly Rent" oninput="this.className = ''" name="MonthlyRent"
-                            pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></p>
-                    <p><input placeholder="Rent Term" oninput="this.className = ''" name="RentTerm"
-                            pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></p>
+                    <p><input placeholder="Monthly Rent" oninput="this.className = ''" id="MonthlyRent"
+                            name="MonthlyRent" onchange="getMoney()"></p>
+                    <p><input placeholder="Rent Term" oninput="this.className = ''" id="RentTerm" name="RentTerm" disabled></p>
                     <p><input placeholder="Security Deposit" oninput="this.className = ''" name="SecurityDeposit"
                             pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></p>
                 </div>
@@ -163,6 +162,24 @@
         }
 
         getOffice()
+    </script>
+
+    <script>
+        function getMoney() {
+            var monthlyRent = document.getElementById("MonthlyRent").value;
+            var leaseTerm = document.getElementById("LeaseTerm").value;
+
+            document.getElementById("MonthlyRent").value = new Intl.NumberFormat('en-us', {
+                style: 'currency',
+                currency: 'USD'
+            }).format(monthlyRent)
+            document.getElementById("RentTerm").value = new Intl.NumberFormat('en-us', {
+                style: 'currency',
+                currency: 'USD'
+            }).format(monthlyRent * leaseTerm)
+        }
+
+        getMoney();
     </script>
 
     <script>
