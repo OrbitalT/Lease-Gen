@@ -37,12 +37,7 @@
     "electron-updater": "^4.3.9",
     "handlebars": "^4.7.7",
     "html-pdf": "^3.0.1",
-    "html-pdf-node": "^1.0.7",
-    "pdfjs": "^2.4.4",
-    "pdfjs-dist": "^2.8.335",
-    "puppeteer": "^10.1.0",
-    "react-number-format": "^4.7.3",
-    "relaxed-json": "^1.0.3"
+    "moment": "^2.29.1"
   },
   "config": {
     "forge": {
