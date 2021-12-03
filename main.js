@@ -57,6 +57,8 @@ app.on('window-all-closed', function () {
 // Recives Lease Data from index.html
 ipcMain.on('leasedata', function (e, leasedata) {
 
+  console.log(leasedata);
+
   const office = leasedata.Office;
 
   // Uses Lease Data and leasetemp.html to make Lease PDF

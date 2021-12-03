@@ -29,7 +29,7 @@
                 Lease Term Info
                 <div class="row">
                     <p>
-                        <select name="LeaseTerm" id="LeaseTerm" onchange="update()">
+                        <select name="LeaseTerm" id="LeaseTerm" onchange="getTerm()">
                             <option value="6">6</option>
                             <option value="7">7</option>
                             <option value="8">8</option>
@@ -43,8 +43,8 @@
                         </select>
                     </p>
                     <p><input placeholder="Lease Start" oninput="this.className = ''" id="LeaseStart" name="LeaseStart"
-                            onchange="update()"></p>
-                    <p><input placeholder="Lease End" oninput="this.className = ''" id="LeaseEnd" name="LeaseEnd"></p>
+                            onchange="getTerm()"></p>
+                    <p><input placeholder="Lease End" oninput="this.className = ''" id="LeaseEnd" name="LeaseEnd" disabled></p>
                 </div>
                 <div class="row">
                     <p><input placeholder="Monthly Rent" oninput="this.className = ''" id="MonthlyRent"
@@ -114,6 +114,7 @@
     </form>
 
     <script>
+        //Dynamic Offices
         function getOffice() {
             var x = document.getElementById("Office").value;
             var propNames;
@@ -167,7 +168,9 @@
     </script>
 
     <script>
+        //Dynamic Money
         function getMoney() {
+
             var monthlyRent = document.getElementById("MonthlyRent").value;
             var leaseTerm = document.getElementById("LeaseTerm").value;
 
@@ -185,35 +188,26 @@
     </script>
 
     <script>
-        function update() {
-            // Broken, does not return readable number for the computer to read
-            var endDate = document.getElementById("LeaseTerm").value;
+        // Dynamic Dates
+        function getTerm() {
+            const moment = require('moment');
+
+            var leaseTerm = document.getElementById("LeaseTerm").value;
             var leaseStartDate = document.getElementById("LeaseStart").value;
 
             console.log(leaseStartDate);
-            console.log(endDate);
+            console.log(leaseTerm);
 
-            const months = ['01', '02', '03', '04', '05', '06', '07',
-                '08', '09', '10', '11', '12'
-            ];
+            var leaseEndDate = moment(leaseStartDate).add(leaseTerm, 'months').subtract(1, 'day').format('L')
 
-            var currentDate = new Date();
-
-            // currentDate.setMonth(currentDate.getMonth() + endDate);
-            // currentDate.setTime(currentDate.getTime() + (1000 * 3600 * 24));
-
-            console.log("Current date:", currentDate);
-            currentDate.setMonth(currentDate.getMonth() + endDate);
-            console.log("Date after " + endDate + " months:", currentDate);
-
-            // document.getElementById("LeaseEnd").value = months[currentDate.getMonth()] + "/" + currentDate.getDate() +
-            //     "/" + currentDate.getFullYear();
+            document.getElementById("LeaseEnd").value = leaseEndDate
         }
 
-        update();
+        getTerm();
     </script>
 
     <script>
+        //Stops ENTER button
         $(document).ready(function () {
             $(window).keydown(function (event) {
                 if (event.keyCode == 13) {
