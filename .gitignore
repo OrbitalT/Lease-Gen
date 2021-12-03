@@ -3,3 +3,4 @@ pdf.js
 out/
 electron-builder.yml
 dist/
+index

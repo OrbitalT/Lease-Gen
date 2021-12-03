@@ -8,7 +8,8 @@
     <style>
         body {
             font-family: 'Times New Roman', Times, serif;
-            font-size: 10px;
+            font-size: 11px;
+            line-height: 1.1;
         }
     </style>
 
@@ -18,6 +19,7 @@
 
     <h1>North Carolina Apartment Lease</h1>
     <h2>Durham County</h2>
+
     <p><b>BY THIS AGREEMENT</b>, made and entered into on <b>____________,20_____</b>, between <b>{{PropertyOwner}}</b>,
         herein
         referred to as Property Manager and/or Landlord, and <b>{{LeaseHolders}}</b>, herein referred to as Tenant,
@@ -30,9 +32,10 @@
         of <b>{{RentTerm}}</b>
         payable in monthly installments of <b>{{MonthlyRent}}</b> in advance, during the entire term of this Lease to
         the
-        Landlord at <b>4904 Garrett Road, Durham, NC 27707</b> or to any other person or agent and any other time or
+        Landlord at <b>{{StreetName}}</b> or to any other person or agent and any other time or
         place that
         Landlord may designate.</p>
+
     <p><b>Should the premises described above not be surrendered to Landlord on a timely basis in order to prepare and
             lease to You, then Landlord may return the deposit to You and the Landlord and You are free of obligation.
             In the alternative, You may choose to lease another available apartment unit at the scheduled rental rate
@@ -52,14 +55,15 @@
                 OF THE PROPERTY. COURT COSTS AND PROCESSING FEES WILL BE CHARGED TO YOUR ACCOUNT.</li>
         </ol>
     </p>
+
     <p><b>1. SECURITY DEPOSIT. </b>On the execution of this Lease, Tenant deposits with Landlord
-        {{SecurityDeposit}} receipt of which is acknowledged by Landlord, as security for the faith and
+        <b>{{SecurityDeposit}}</b> receipt of which is acknowledged by Landlord, as security for the faith and
         performance by the Tenant for the terms hereof, to be returned to Tenant on the full and faithful
         performance by him/her of the provisions hereof.</p>
     <p>THE LANDLORD MAY DEPOSIT THE SECURITY DEPOSIT INTO AN INTEREST BEARING ACCOUNT, ANY INTEREST EARNED FROM THE
         DEPOSIT ARE THE SOLE PROPERTY OF THE LANDLORD AND THE TENANT HAS NO ENTITLEMENT TO ANY INTEREST EARNED ON THE
-        DEPOSIT. YOUR SECURITY DEPOSIT IS BEING HELD IN A TRUST ACCOUNT AT Branch Banking and Trust Co. 595 S. Duke
-        Street, Durham, NC 27701.</p>
+        DEPOSIT. YOUR SECURITY DEPOSIT IS BEING HELD IN A TRUST ACCOUNT AT <B>Branch Banking and Trust Co. 595 S. Duke
+            Street, Durham, NC 27701.</B></p>
     <p>If the Tenant fulfills all other provisions of this Lease, this security deposit shall be used for any
         outstanding account balance and any damages sustained by the Landlord by reason of the negligence of the Tenant,
         insofar as cleaning, maintenance and repair of said apartment is concerned, the remainder of said deposit shall
@@ -68,6 +72,9 @@
             due to cigarette smoke are not considered normal wear and tear and associated charges shall be deducted from
             the security deposit. Stains and odors from the lingering effects of cooking are not considered normal wear
             and tear and associated charges shall be deducted from the security deposit.</b></p>
+    <p>It is strongly recommended that Tenant be present during the post move-out inspection by Landlord. If Tenant
+        elects not to be present, then he/she accepts Landlord’s analysis of the situation and accepts the related
+        charges.</p>
     <p>It is strongly recommended that Tenant be present during the post move-out inspection by Landlord. If Tenant
         elects not to be present, then he/she accepts Landlord’s analysis of the situation and accepts the related
         charges.</p>
@@ -117,30 +124,9 @@
         personal property, shall, unless otherwise provided by written agreement between Landlord and Tenant, be the
         property of Landlord and remain in the Leased apartment at the expiration or sooner termination of this Lease.
     </p>
-    <p>
-        <b>INSTALLATION AND USE OF SATELLITES.</b>
-        <ol>
-            <li>The dish must be one meter or less in diameter or a traditional stick-type antenna on a balcony railing
-                or
-                patio that is totally contained within the premises being leased.</li>
-            <li>No dish shall be installed on any common areas including outside walls, outside window sills, roofs,
-                common
-                area balconies, common area stairwells, front stoops or landscaped areas.</li>
-            <li>Landlord reserves the right to have Tenant move the dish to another location if it is visible from the
-                street or detracts from the community as a whole. </li>
-            <li>No holes may be drilled in any exterior wall, interior wall, roof, window, window sills or balcony
-                railing.
-            </li>
-            <li>Tenant shall assume complete responsibility for real or personal property damage, including death or
-                injury,
-                caused by the satellite dish. </li>
-            <li>Provided the dish is installed in compliance with the above guidelines, the dish must be registered with
-                the
-                Landlord. Registering a dish includes labeling the dish and paying the $75 satellite dish deposit. The
-                satellite dish deposit is refundable in accordance with paragraph <b>1. SECURITY DEPOSIT.</b></li>
-        </ol>
-    </p>
-    <p><b>8. ANIMALS.</b> Tenant shall keep no domestic or other animals in or about the apartment or on the apartment
+    <p><b>8. SATELLITE DISHES.</b> No satellite dishes are permitted on or about the Premises without Landlord’s written
+        consent.</p>
+    <p><b>9. ANIMALS.</b> Tenant shall keep no domestic or other animals in or about the apartment or on the apartment
         house premises without the written consent of the Landlord. <b>Approval of the pet shall be in the sole
             discretion of the Landlord. It is the discretion of the Property Manager to deny approval of a pet for any
             reason. Furthermore, pet approval may later be revoked by Property Manager for reasons of safety or to
@@ -182,7 +168,8 @@
                 the Apartment or is part of the cause of unclean living conditions or odor.</li>
         </ol>
     </p>
-    <p><b>9. PEST EXTERMINATION AND BED BUGS. </b>Pest extermination is performed on an “as needed” basis. Extermination
+    <p><b>10. PEST EXTERMINATION AND BED BUGS. </b>Pest extermination is performed on an “as needed” basis.
+        Extermination
         for fleas and ticks are the responsibility of the Tenant. <b>The apartment has been inspected for bed bugs prior
             to move in. </b>Landlord has implemented a comprehensive plan of action for Tenant to follow when
         encountering bed bugs. Tenant shall immediately notify the Landlord upon discovering bed bugs or the possibility
@@ -192,7 +179,7 @@
         required to follow our treatment program in order to protect the other Tenants, family members and guests.
         Tenant shall cooperate fully with the Landlord and the pest management professional. Failure to do so will
         result in a material breach of this Lease and termination of the Tenancy.</p>
-    <p><b>10. WASTE, NUISANCE, OR UNLAWFUL USE. </b>Tenant agrees that he will not commit waste on the premises, or
+    <p><b>11. WASTE, NUISANCE, OR UNLAWFUL USE. </b>Tenant agrees that he will not commit waste on the premises, or
         maintain or permit to be maintained a nuisance thereon, or permit the premises to be used in an unlawful manner.
     </p>
     <p>
@@ -237,15 +224,15 @@
                 Landlord to park more than two vehicles on the property.</li>
         </ol>
     </p>
-    <p><b>11. WAIVER BY LANDLORD. </b>WAIVER BY LANDLORD OF A BREACH OF ANY COVENANT OR DUTY OF TENANT UNDER THIS LEASE
+    <p><b>12. WAIVER BY LANDLORD. </b>WAIVER BY LANDLORD OF A BREACH OF ANY COVENANT OR DUTY OF TENANT UNDER THIS LEASE
         IS NOT A WAIVER OF A BREACH OF ANY OTHER COVENANT OR DUTY OF TENANT, OR OF ANY SUBSEQUENT BREACH OF THE SAME
         COVENANT OR DUTY.</p>
-    <p><b>12. TENANT’S HOLDING OVER. </b>The parties agree that any holding over by Tenant under this Lease, without
+    <p><b>13. TENANT’S HOLDING OVER. </b>The parties agree that any holding over by Tenant under this Lease, without
         Landlord’s written consent, shall be a tenancy at will, which may be terminated by Landlord on 30 day notice in
         writing thereof. It is expressly agreed between the parties that the Landlord may change, whatever rate of rent
         he deems appropriate in such an instance. Landlord will notify Tenant of additional fees for a month to month
         Lease.</p>
-    <p><b>13. TERMINATION OF TENANCY BY LANDLORD. </b>Inasmuch as the apartment complex is composed of numerous units,
+    <p><b>14. TERMINATION OF TENANCY BY LANDLORD. </b>Inasmuch as the apartment complex is composed of numerous units,
         occupied by diverse persons, and whereas it is necessary for the Landlord to furnish to said occupants a proper
         area or environment in which to reside, now, therefore, it is expressly understood and agreed between the
         parties hereto, that if the Landlord deems it necessary to terminate this Lease in order to preserve the
@@ -258,7 +245,7 @@
     <p>Landlord may also have the option to terminate the Lease under <b>16. DEFAULT</b> if there is a failure to comply
         with a term or condition of this Lease. Termination under <b>16. DEFAULT</b> does not require a 30-day
         notification and may result in forfeiture of the Security Deposit.</p>
-    <p><b>14. COVENANT OF QUIET ENJOYMENT AND DELIVERY OF PREMISES. </b>The Landlord covenants for the Tenant a quiet
+    <p><b>15. COVENANT OF QUIET ENJOYMENT AND DELIVERY OF PREMISES. </b>The Landlord covenants for the Tenant a quiet
         and peaceful possession of said premises during the term of this Lease. Also, that the Landlord is in peaceful
         possession of said premises and has good lawful right to Lease or assign same, and that the Landlord hereby
         guarantees same so long as the Tenant complies with the terms of this Lease. At the end of the term of this
@@ -290,44 +277,25 @@
         any multifamily living environment. You agree that it is impossible or unreasonably practicable (due to
         extraordinary costs involved) for Us to prevent odors, smoke or other smells from entering the Home from
         neighboring rental units.</p>
-    <p><b>15. FITNESS ROOM. </b>Privileges to use of the fitness room are included in your rent. Landlord reserves the
-        right to revoke such privileges. In the event of revocation of privileges, no deduction in rent will occur and
-        such may result in eviction and termination of the Lease.</p>
-    <p>Rules (Landlord reserves the right to amend and/or add new rules): # of cards used: _______ Card #1:_____________
-        Card #2: _______________</p>
-    <p>
-        <ol>
-            <li>Fitness room is accessible only by key card. Key cards are issued to Leaseholders and a maximum of two
-                cards per unit are available.</li>
-            <li>Only one key card per Leaseholder.</li>
-            <li>Key cards are the property of the Landlord and shall be returned upon move out or in the event of
-                revocation of privileges.</li>
-            <li>$30 per key/fee will be assessed if key cards are not returned prior to move out or promptly returned in
-                the event of revocation of privileges.</li>
-            <li>$30 per key/fee will be assessed in the event of lost or cancelled cards.</li>
-            <li>Fitness room is open year round with hours of 6:00 am to 10:00 pm and no one under the age of 18 is
-                allowed in the fitness room at any time.</li>
-            <li>No alcohol, glass, loud music, pets or boisterous activity allowed in the fitness room.</li>
-            <li>Appropriate attire must be worn in fitness room.</li>
-            <li>Equipment in fitness room shall be used in an appropriate manner.</li>
-            <li>All guests must be accompanied by a leaseholder or registered occupant at all times.</li>
-        </ol>
-    </p>
-    <p>Tenant shall use the fitness room at his/her own risk. Fitness rooms are inherently dangerous. Landlord has taken
-        (and continues to take) reasonable steps to minimize dangers and make the fitness areas safe, but does not
-        assume responsibility for accidents, injuries or death that may occur in the fitness room.</p>
-    <p><b>16. DEFAULT. </b>IF THE TENANT DEFAULTS IN THE PAYMENT OF RENT OR ANY PART THEREOF, AT THE TIMES HEREINBEFORE
-        SPECIFIED, OR IF THE TENANT DEFAULTS IN THE PERFORMANCE OF OR COMPLIANCE WITH ANY OTHER TERM OF CONDITION
-        HEREOF, OR OF THE REGULATIONS ATTACHED HERETO AND MADE A PART HEREOF, WHICH REGULATIONS SHALL BE SUBJECT TO
-        OCCASIONAL AMENDMENT OR ADDITION BY LANDLORD, THE LEASE, AT THE OPTION OF THE LANDLORD, SHALL TERMINATE AND BE
-        FORFEITED, AND LANDLORD MAY FILE A SUMMARY EJECTMENT WITH THE COUNTY MAGISTRATE’S OFFICE FOR A MONEY JUDGEMENT
-        AND/OR POSSESSION OF THE PROPERTY. LANDLORD MAY RECOVER DAMAGES, INCLUDING COSTS AND ATTORNEY’S FEES FROM THE
-        TENANT. It is expressly understood and agreed between the parties that in the event the Landlord is forced to
-        retake possession of the apartment under this section of the Lease, that the Tenant shall not be relieved of his
-        duty to pay rent as provided in this Lease; it is further understood, that the balance of the rent remaining on
-        this Lease shall then immediately be due and payable to the Landlord. It is further understood and agreed
-        between the parties that in the event that Lease is terminated under this section, that the security deposit
-        shall immediately be forfeited to the Landlord.</p>
+    <p><b>16. DEFAULT.</b> IF THE TENANT DEFAULTS IN THE PAYMENT OF RENT OR ANY PART THEREOF, AT THE TIMES HEREINBEFORE
+        SPECIFIED,
+        OR IF THE TENANT DEFAULTS IN THE PERFORMANCE OF OR COMPLIANCE WITH ANY OTHER TERM OF CONDITION HEREOF, OR OF THE
+        REGULATIONS ATTACHED HERETO AND MADE A PART HEREOF, WHICH REGULATIONS SHALL BE SUBJECT TO OCCASIONAL AMENDMENT
+        OR
+        ADDITION BY LANDLORD, THE LEASE, AT THE OPTION OF THE LANDLORD, SHALL TERMINATE AND BE FORFEITED, AND LANDLORD
+        MAY
+        FILE A SUMMARY EJECTMENT WITH THE COUNTY MAGISTRATE’S OFFICE FOR A MONEY JUDGEMENT AND/OR POSSESSION OF THE
+        PROPERTY. LANDLORD MAY RECOVER DAMAGES, INCLUDING COSTS AND ATTORNEY’S FEES FROM THE TENANT. It is expressly
+        understood and agreed between the parties that in the event the Landlord is forced to retake possession of the
+        apartment under this section of the Lease, that the Tenant shall not be relieved of his duty to pay rent as
+        provided
+        in this Lease; it is further understood, that the balance of the rent remaining on this Lease shall then
+        immediately
+        be due and payable to the Landlord. It is further understood and agreed between the parties that in the event
+        that
+        Lease is terminated under this section, that the security deposit shall immediately be forfeited to the
+        Landlord.</p>
+
     <p><b>17. DESTRUCTION OF PREMISES AND EMINENT DOMAIN. </b>In the event the Leased premises are destroyed or rendered
         untenable by fire, storm, earthquake, or other casualty not caused by the negligence of the Tenant, or if the
         same are taken by eminent domain, this Lease shall be at end from such time, except for the purpose of enforcing
@@ -340,6 +308,7 @@
         the full rent shall recommence and the Lease continue according to its terms. A condemnation award shall belong
         exclusively to the Landlord.
     </p>
+
     <p><b>18. TERMINATION OF TENANCY BY TENANT. </b>Provided neither Landlord nor Tenant wishes for the Lease to
         terminate at the end of the Lease term and a new Lease or a renewal of this Lease has not been signed, and the
         Tenant holds over ( a “holdover tenancy”), then unless otherwise notified, the Landlord and Tenant agree that
@@ -358,7 +327,35 @@
         month-to-month renewal term will be exactly 30 (thirty) days in length, beginning the first calendar day after
         the end of the original term. It is further agreed the original Lease terms will remain in effect unless amended
         by the Landlord.</p>
-    <p><b>Tenant's Duties Upon Termination: </b></p>
+    <p><b>Tenant's Duties Upon Termination: </b>Tenant's Duties Upon Termination: Upon any termination of the Tenancy
+        created hereby, whether by the Landlord or the
+        Tenant and whether for breach or otherwise, the Tenant shall: (1) pay all utility bills for services to the
+        Premises
+        for which he/she is responsible and have such utility services discontinued; (2) vacate the Premises removing
+        therefrom all Tenants personal property of whatsoever nature; (3) properly sweep and clean the Premises,
+        including
+        the plumbing fixtures, refrigerators, stoves and sinks, removing there from all rubbish, trash, garbage and
+        refuse;
+        (4) make such repairs and perform such other acts as are necessary to return the Premises, and any appliances or
+        fixtures furnished in connection therewith, in the same condition as when Tenant took possession of the
+        premises;
+        provided, however, Tenant shall not be responsible for ordinary wear and tear or for repairs required by law or
+        to
+        be performed by the Landlord; (5) fasten and lock all doors and windows; (6) return to the Landlord all keys to
+        the
+        Premises; and (7) notify the Landlord of the address to which the balance of the Security Deposit may be
+        returned.
+        If the Tenant fails to sweep out and cleaned the Premises, appliances and fixtures as herein provided, Tenant
+        shall
+        become liable, without notice or demand, to the Landlord for the actual costs of cleaning (over and above
+        ordinary
+        wear and tear), which may be deducted from the Security Deposit as provided above.
+
+        In the event Tenant desires to terminate the Tenancy prior to the end of its term then in effect, Tenant
+        acknowledges and understands that the Landlord will use reasonable efforts to re-rent the Premises, but that the
+        Tenant shall remain responsible for the performance of all of the Tenants obligations under this Agreement until
+        such time as the Landlord may be able to re-rent the Premises, unless the Landlord and Tenant agree otherwise in
+        writing.</p>
     <p><b>19. SECURITY SYSTEM, CARBON MONOXIDE AND SMOKE DETECTOR. </b>A Security system, battery or hard wired smoke
         detector and carbon monoxide detector (carbon monoxide detectors are provided in dwellings with fireplaces, gas,
         and propane or attached garages only) are provided in the above referenced apartment for the Tenant's use. The
@@ -385,22 +382,22 @@
         damage to the property) and personal property. Tenant shall provide Landlord with a Certificate of Insurance
         listing Property Owner, TICON, INC., as a certificate holder or interested party. The Owner’s Name is TICON,
         INC. and shall be named as an “Additional Insured” or “Interested Party”. Minimum Liability Coverage required is
-        $100,000. Proof of such is required prior to move in. TENANT ACKNOWLEDGEMENT (initial)__________</p>
-    <p><b>21. BINDING EFFECT. </b>The covenants and conditions herein contained shall apply to and bind the heirs, legal
+        $100,000. Proof of such is required prior to move in. TENANT ACKNOWLEDGEMENT (initial)____________________</p>
+    <p><b>20. BINDING EFFECT. </b>The covenants and conditions herein contained shall apply to and bind the heirs, legal
         representatives, and assigns of the parties hereto, and all covenants are to be construed as conditions of this
         Lease.</p>
-    <p><b>22. MORTGAGE LENDER. </b>The apartments are financed with a mortgage lender. The mortgage lender is referred
+    <p><b>21. MORTGAGE LENDER. </b>The apartments are financed with a mortgage lender. The mortgage lender is referred
         to as the mortgagee. Tenant agrees not to look to the mortgagee as mortgagee, mortgagee in possession, or
         successor in title to the Premises, for accountability for any security deposit required by the Landlord
         hereunder as security for the Tenant's performance of this Lease. At the option of the mortgage lender, this
         Lease may at any time during its continuation be made superior or subordinate to the lien of any one or more
         mortgages affecting the Premises.</p>
-    <p><b>23. HAZARDOUS SUBSTANCES. </b>Tenant agrees not to handle, store or dispose of any hazardous or toxic waste or
+    <p><b>22. HAZARDOUS SUBSTANCES. </b>Tenant agrees not to handle, store or dispose of any hazardous or toxic waste or
         substance upon the Premises which are prohibited by any federal, state or local statute, ordinance or
         regulation. Tenant hereby covenants to indemnify and hold Landlord, its successors and assigns, harmless from
         any loss, damage, claims, costs, liability or cleanup costs arising out of Tenant's use, handling, storage or
         disposal of any such hazardous or toxic wastes, constituents or substances on the Premises.</p>
-    <p><b>24. COVENANTS TO RUN WITH THE LAND. </b>All covenants, agreements, stipulations, provision, conditions and
+    <p><b>23. COVENANTS TO RUN WITH THE LAND. </b>All covenants, agreements, stipulations, provision, conditions and
         obligations herein expressed and set forth shall extend to, bind and inure to the benefit of, as the case may
         require, the heirs, executors, administrators, successors and assigns of Landlord and Tenant, respectively, or
         their successors in interest, as fully as if such words were written wherever reference to Landlord and Tenant
@@ -423,6 +420,32 @@
     <br>
     <p><b>Washer/Dryer: {{WasherAndDryer}}</b></p>
     <!-- last line of lease -->
+
+    <h1 style="text-align: center; page-break-before: always;">Renters Concession Addendum</h1>
+    <p><b>BY THIS AGREEMENT</b>, made and entered into on <b>{{LeaseStart}}</b>, is attached and serves as an addendum
+        to the Lease
+        dated <b>{{LeaseEnd}}</b>, for the property located at <b>{{Unit}} {{StreetName}}</b>, between
+        <b>{{PropertyOwner}}</b>, hereinafter
+        referred to as Landlord, and <b>{{LeaseHolders}}</b>, herein referred to as Tenant.</p>
+    <p>It is agreed and understood by the parties hereto that the Tenant has received a rental concession as follows:
+        <b>{{ConcessionAmount}}</b>
+        In the event that the aforesaid Lease term is not fulfilled, the Tenant hereby agrees to reimburse the Landlord
+        for <b>{{ConcessionAmount}} {{ConcessionType}}</b>, which is the total value of the above concession, upon
+        written notice of the
+        Tenant’s
+        intention to vacate.</p>
+    <p>The concession must be taken as a credit against rent owed. It is not refundable in cash. Any concession not used
+        at the termination of your lease will be forfeited.</p>
+    <br>
+    <p>_______________________________________________________________________</p>
+    <p>Tenant Signature Date</p>
+    <p>_______________________________________________________________________</p>
+    <p>Tenant Signature Date</p>
+    <p>_______________________________________________________________________</p>
+    <p>Tenant Signature Date</p>
+    <p>_______________________________________________________________________</p>
+    <p>Landlord Signature Date</p>
+    <!-- Renters Concession Addendum -->
 
     <h1 style="text-align: center; page-break-before: always;">Pet Addendum</h1>
     <p><b>BY THIS AGREEMENT</b>, made and entered into on <b>{{LeaseStart}}</b>, is attached and serves as an addendum
@@ -468,6 +491,49 @@
     <p>_______________________________________________________________________</p>
     <p>Landlord Signature Date</p>
     <!-- Pet Addendum -->
+
+    <h1 style="text-align: center; page-break-before: always;">Fitness Room Addendum</h1>
+    <p><b>BY THIS AGREEMENT</b>, made and entered into on <b>{{LeaseStart}}</b>, is attached and serves as an addendum
+        to the Lease
+        dated <b>{{LeaseEnd}}</b>, for the property located at <b>{{Unit}} {{StreetName}}</b>, between
+        <b>{{PropertyOwner}}</b>, hereinafter
+        referred to as Landlord, and <b>{{LeaseHolders}}</b>, herein referred to as Tenant.</p>
+    <p>Privileges to use of the fitness room are included in your rent. Landlord reserves the
+        right to revoke such privileges. In the event of revocation of privileges, no deduction in rent will occur and
+        such may result in eviction and termination of the Lease.</p>
+    <p>Rules (Landlord reserves the right to amend and/or add new rules): # of cards used: _______ Card #1:_____________
+        Card #2: _______________</p>
+    <p>
+        <ol>
+            <li>Fitness room is accessible only by key card. Key cards are issued to Leaseholders and a maximum of two
+                cards per unit are available.</li>
+            <li>Only one key card per Leaseholder.</li>
+            <li>Key cards are the property of the Landlord and shall be returned upon move out or in the event of
+                revocation of privileges.</li>
+            <li>$30 per key card will be assessed if key cards are not returned prior to move out or promptly returned
+                in the event of revocation of privileges.</li>
+            <li>$30 per key card will be assessed in the event of lost or cancelled cards.</li>
+            <li>Fitness room is open year-round with hours of 6:00 am to 10:00 pm and no one under the age of 18 is
+                allowed in the fitness room at any time.</li>
+            <li>No alcohol, glass, loud music, pets or boisterous activity allowed in the fitness room.</li>
+            <li>Appropriate attire must be worn in fitness room.</li>
+            <li>Equipment in fitness room shall be used in an appropriate manner.</li>
+            <li>All guests must be accompanied by a leaseholder or registered occupant at all times.</li>
+        </ol>
+    </p>
+    <p><b>Tenant shall use the fitness room at his/her own risk. Fitness rooms are inherently dangerous. Landlord has
+            taken (and continues to take) reasonable steps to minimize dangers and make the fitness area safe, but does
+            not assume responsibility for accidents, injuries or death that may occur in the fitness room. </b></p>
+    <br>
+    <p>_______________________________________________________________________</p>
+    <p>Tenant Signature Date</p>
+    <p>_______________________________________________________________________</p>
+    <p>Tenant Signature Date</p>
+    <p>_______________________________________________________________________</p>
+    <p>Tenant Signature Date</p>
+    <p>_______________________________________________________________________</p>
+    <p>Landlord Signature Date</p>
+    <!-- Renters Concession Addendum -->
 
     <h1 style="text-align: center; page-break-before: always;">Renters Insurance Addendum</h1>
     <p><b>BY THIS AGREEMENT</b>, made and entered into on <b>{{LeaseStart}}</b>, is attached and serves as an addendum
