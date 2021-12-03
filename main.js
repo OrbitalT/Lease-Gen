@@ -59,6 +59,8 @@ ipcMain.on('leasedata', function (e, leasedata) {
 
   console.log(leasedata);
 
+  //Retype all Lease Docs. Combine Audubon and PineRidge Docs as they share same pool and fitness pages. Remove Concession options
+
   const office = leasedata.Office;
 
   // Uses Lease Data and leasetemp.html to make Lease PDF
