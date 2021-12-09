@@ -1,7 +1,8 @@
 const {
   app,
   BrowserWindow,
-  ipcMain
+  ipcMain,
+  Menu
 } = require('electron')
 const path = require('path')
 const fs = require('fs')
@@ -11,6 +12,7 @@ const homedir = require('os').homedir()
 const {
   autoUpdater
 } = require('electron-updater')
+const shell = require('electron').shell
 var leasepath = '';
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
@@ -25,6 +27,31 @@ function createWindow() {
     }
   })
 
+  var menu = Menu.buildFromTemplate([{
+    label: 'Menu',
+    submenu: [{
+        label: 'Restart'
+      },
+      {
+        label: 'Docs',
+        click() {
+          shell.openExternal('https://github.com/OrbitalT/Lease-Gen/blob/Master/README.md')
+        },
+        accelerator: 'Alt+D'
+      },
+      {
+        type: 'separator'
+      },
+      {
+        label: 'Exit',
+        click() {
+          app.quit()
+        }
+      }
+    ]
+  }])
+  Menu.setApplicationMenu(menu);
+
   mainWindow.loadFile('index.html')
 
   mainWindow.once('ready-to-show', () => {
@@ -34,13 +61,10 @@ function createWindow() {
   autoUpdater.on('update-available', () => {
     mainWindow.webContents.send('update_available');
   });
-  
+
   autoUpdater.on('update-downloaded', () => {
     mainWindow.webContents.send('update_downloaded');
   });
-
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
 }
 
 app.whenReady().then(() => {
