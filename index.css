@@ -12,15 +12,6 @@ body {
     background-color: #f1f1f1;
 }
 
-#regForm {
-    background-color: #ffffff;
-    margin: 100px auto;
-    font-family: Raleway;
-    padding: 40px;
-    width: 70%;
-    min-width: 300px;
-}
-
 h1 {
     text-align: center;
 }
@@ -31,11 +22,7 @@ input {
     font-size: 17px;
     font-family: Raleway;
     border: 1px solid #aaaaaa;
-}
-
-/* Mark input boxes that gets an error on validation: */
-input.invalid {
-    background-color: #ffdddd;
+    cursor: pointer;
 }
 
 select {
@@ -44,15 +31,7 @@ select {
     font-size: 17px;
     font-family: Raleway;
     border: 1px solid #aaaaaa;
-}
-
-select.invalid {
-    background-color: #ffdddd;
-}
-
-/* Hide all steps by default: */
-.tab {
-    display: none;
+    cursor: pointer;
 }
 
 button {
@@ -115,20 +94,7 @@ button:hover {
     margin: 0 -10px;
 }
 
-.col-25 {
-    flex: 25%;
-}
-
 .col-50 {
     flex: 50%;
-}
-
-.col-75 {
-    flex: 75%;
-}
-
-.col-25,
-.col-50,
-.col-75 {
     padding: 0 16px;
 }

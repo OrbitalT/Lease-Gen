@@ -44,15 +44,16 @@
                     </p>
                     <p><input placeholder="Lease Start" oninput="this.className = ''" id="LeaseStart" name="LeaseStart"
                             onchange="getTerm()"></p>
-                    <p><input placeholder="Lease End" oninput="this.className = ''" id="LeaseEnd" name="LeaseEnd" disabled></p>
+                    <p><input placeholder="Lease End" oninput="this.className = ''" id="LeaseEnd" name="LeaseEnd"
+                            disabled></p>
                 </div>
                 <div class="row">
                     <p><input placeholder="Monthly Rent" oninput="this.className = ''" id="MonthlyRent"
                             name="MonthlyRent" onchange="getMoney()"></p>
                     <p><input placeholder="Rent Term" oninput="this.className = ''" id="RentTerm" name="RentTerm"
                             disabled></p>
-                    <p><input placeholder="Security Deposit" oninput="this.className = ''" name="SecurityDeposit"
-                            pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></p>
+                    <p><input placeholder="Security Deposit" oninput="this.className = ''" id="SecurityDeposit"
+                            name="SecurityDeposit" onchange="getDeposit()"></p>
                 </div>
             </div>
 
@@ -91,86 +92,56 @@
                 </div>
                 <div class="row">
                     <p><input placeholder="Pet Type" oninput="this.className = ''" name="PetType"></p>
-                    <p><input placeholder="Pet Deposit" oninput="this.className = ''" name="PetDeposit"
-                            pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency"></p>
+                    <p><input placeholder="Pet Deposit" oninput="this.className = ''" id="PetDeposit" name="PetDeposit"
+                            onchange="getPetDeposit()"></p>
                     <p>
                         <select name="PetPayable" id="PetPayable">
                             <option value="Already Paid">Already Paid</option>
                             <option value="$100">$100</option>
                         </select>
                     </p>
-                    <!-- <p><input placeholder="Concession" oninput="this.className = ''" name="ConcessionAmount"></p>
-                    <p><input placeholder="Concession Type" oninput="this.className = ''" name="ConcessionType"></p> -->
                 </div>
             </div>
         </div>
 
-        //FIX Submit button style. FIX save office choice to prevent changing each time
+        <!-- FIX Submit button style. FIX save office choice to prevent changing each time -->
 
         <input style="width: 23%; float: right;" type="submit" value="Submit">
         <select style="width: 24%; float: right;" name="Office" id="Office" onchange="getOffice()">
-            <option value="glenbrook">Glenbrook</option>
-            <option value="pineridge">Pine Ridge</option>
-            <option value="audubon">Audubon</option>
+            <option value="Glenbrook">Glenbrook</option>
+            <option value="Pineridge">Pine Ridge</option>
+            <option value="Audubon">Audubon</option>
             <!-- <option value="lancaster">Lancaster</option> -->
         </select>
     </form>
 
     <script>
-        //Dynamic Offices
-        function getOffice() {
-            var x = document.getElementById("Office").value;
-            var propNames;
-            var propOwners;
-            if (x === "glenbrook") {
-                propNames = ["Glenbrook East", "Glenbrook West", "Glenbrook West II", "Pickett Square", "Hawks Nest",
-                    "Avalon East", "Avalon West", "Lenox East", "Lenox West", "Bradford Ridge", "Dupont Circle"
-                ];
-                propOwners = {
-                    'THIS IS WRONG PLEASE CHANGE': 'Property Owner',
-                    'Ticon Properties LLC': 'Ticon Properties LLC',
-                    'Glenbrook East LLC': 'Glenbrook East',
-                    'WJM Holdings III LLC': 'Glenbrook West',
-                    'WJM Holdings II LLC': 'Glenbrook West II',
-                    'Ticon Thomas Partnership': 'Pickett Square',
-                    'Hawks Nest LLC': 'Hawks Nest',
-                    'Avalon at Bridgefield Apartments LLC': 'Avalon East',
-                    'Meca Properties LLC': 'Avalon West',
-                    'Lenox East LLC': 'Lenox East',
-                    'Lenox West LLC': 'Lenox West',
-                    'Mattie Inc': 'Bradford Ridge',
-                    'Ticon Inc': 'Dupont Circle & 200 Andrews Road'
-                }
-            } else if (x === "pineridge") {
-                propNames = ["Pine Ridge", "Taylor's Pond", "Sutton Station Residential"]
-                propOwners = ["Ticon Properties LLC"]
-            } else if (x === "audubon") {
-                propNames = ["Audubon Lake", "Fox Chase", "Lochridge", "Bentley Ridge", "Highgate Townhomes"]
-                propOwners = ["Ticon Properties LLC"]
-            }
-            var propN = ""
-            var propO = ""
-            for (var item of propNames) {
-                propN += "<option>" + item + "</option>"
-            }
+        //Security Deposit
+        function getDeposit() {
 
-            if (x === "glenbrook") {
-                for (var item in propOwners) {
-                    propO += "<option value=" + `${item}` + ">" + `${propOwners[item]}` + "</option>"
-                }
-            } else {
-                for (var item of propOwners) {
-                    propO += "<option>" + item + "</option>"
-                }
-            }
-            document.getElementById("PropertyName").innerHTML = propN;
-            document.getElementById("PropertyOwner").innerHTML = propO;
+            var leaseDeposit = document.getElementById("SecurityDeposit").value;
+
+            document.getElementById("SecurityDeposit").value = new Intl.NumberFormat('en-us', {
+                style: 'currency',
+                currency: 'USD'
+            }).format(leaseDeposit)
         }
 
-        getOffice()
-    </script>
+        getDeposit();
 
-    <script>
+        //Security Pet Deposit
+        function getPetDeposit() {
+
+            var leasePetDeposit = document.getElementById("PetDeposit").value;
+
+            document.getElementById("PetDeposit").value = new Intl.NumberFormat('en-us', {
+                style: 'currency',
+                currency: 'USD'
+            }).format(leasePetDeposit)
+        }
+
+        getPetDeposit();
+
         //Dynamic Money
         function getMoney() {
 
@@ -188,9 +159,7 @@
         }
 
         getMoney();
-    </script>
 
-    <script>
         // Dynamic Dates
         function getTerm() {
             const moment = require('moment');
@@ -207,9 +176,59 @@
         }
 
         getTerm();
-    </script>
 
-    <script>
+        //Dynamic Offices
+        function getOffice() {
+            var x = document.getElementById("Office").value;
+            var propNames;
+            var propOwners;
+            if (x === "Glenbrook") {
+                propNames = ["Glenbrook East", "Glenbrook West", "Glenbrook West II", "Pickett Square", "Hawks Nest",
+                    "Avalon East", "Avalon West", "Lenox East", "Lenox West", "Bradford Ridge", "Dupont Circle"
+                ];
+                propOwners = {
+                    'THIS IS WRONG PLEASE CHANGE': 'Property Owner',
+                    'Ticon Properties LLC': 'Ticon Properties LLC',
+                    'Glenbrook East LLC': 'Glenbrook East',
+                    "WJM Holdings III LLC": 'Glenbrook West',
+                    'WJM Holdings II LLC': 'Glenbrook West II',
+                    'Ticon Thomas Partnership': 'Pickett Square',
+                    'Hawks Nest LLC': 'Hawks Nest',
+                    'Avalon at Bridgefield Apartments LLC': 'Avalon East',
+                    'Meca Properties LLC': 'Avalon West',
+                    'Lenox East LLC': 'Lenox East',
+                    'Lenox West LLC': 'Lenox West',
+                    'Mattie Inc': 'Bradford Ridge',
+                    'Ticon Inc': 'Dupont Circle & 200 Andrews Road'
+                }
+            } else if (x === "Pineridge") {
+                propNames = ["Pine Ridge", "Taylor's Pond", "Sutton Station Residential"]
+                propOwners = ["Ticon Properties LLC"]
+            } else if (x === "Audubon") {
+                propNames = ["Audubon Lake", "Fox Chase", "Lochridge", "Bentley Ridge", "Highgate Townhomes"]
+                propOwners = ["Ticon Properties LLC"]
+            }
+            var propN = ""
+            var propO = ""
+            for (var item of propNames) {
+                propN += "<option>" + item + "</option>"
+            }
+
+            if (x === "Glenbrook") {
+                for (var item in propOwners) {
+                    propO += "<option value=" + `${item}` + ">" + `${propOwners[item]}` + "</option>"
+                }
+            } else {
+                for (var item of propOwners) {
+                    propO += "<option>" + item + "</option>"
+                }
+            }
+            document.getElementById("PropertyName").innerHTML = propN;
+            document.getElementById("PropertyOwner").innerHTML = propO;
+        }
+
+        getOffice()
+
         //Stops ENTER button
         $(document).ready(function () {
             $(window).keydown(function (event) {
@@ -222,93 +241,7 @@
     </script>
 
     <script>
-        $("input[data-type='currency']").on({
-            keyup: function () {
-                formatCurrency($(this));
-            },
-            blur: function () {
-                formatCurrency($(this), "blur");
-            }
-        });
-
-
-        function formatNumber(n) {
-            // format number 1000000 to 1,234,567
-            return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-        }
-
-
-        function formatCurrency(input, blur) {
-            // appends $ to value, validates decimal side
-            // and puts cursor back in right position.
-
-            // get input value
-            var input_val = input.val();
-
-            // don't validate empty input
-            if (input_val === "") {
-                return;
-            }
-
-            // original length
-            var original_len = input_val.length;
-
-            // initial caret position 
-            var caret_pos = input.prop("selectionStart");
-
-            // check for decimal
-            if (input_val.indexOf(".") >= 0) {
-
-                // get position of first decimal
-                // this prevents multiple decimals from
-                // being entered
-                var decimal_pos = input_val.indexOf(".");
-
-                // split number by decimal point
-                var left_side = input_val.substring(0, decimal_pos);
-                var right_side = input_val.substring(decimal_pos);
-
-                // add commas to left side of number
-                left_side = formatNumber(left_side);
-
-                // validate right side
-                right_side = formatNumber(right_side);
-
-                // On blur make sure 2 numbers after decimal
-                if (blur === "blur") {
-                    right_side += "00";
-                }
-
-                // Limit decimal to only 2 digits
-                right_side = right_side.substring(0, 2);
-
-                // join number by .
-                input_val = "$" + left_side + "." + right_side;
-
-            } else {
-                // no decimal entered
-                // add commas to number
-                // remove all non-digits
-                input_val = formatNumber(input_val);
-                input_val = "$" + input_val;
-
-                // final formatting
-                if (blur === "blur") {
-                    input_val += ".00";
-                }
-            }
-
-            // send updated string to input
-            input.val(input_val);
-
-            // put caret back in the right position
-            var updated_len = input_val.length;
-            caret_pos = updated_len - original_len + caret_pos;
-            input[0].setSelectionRange(caret_pos, caret_pos);
-        }
-    </script>
-
-    <script>
+        //Updater and Electron connection
         const fs = require('fs');
         const path = require('path');
         const electron = require('electron');

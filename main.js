@@ -11,6 +11,7 @@ const homedir = require('os').homedir()
 const {
   autoUpdater
 } = require('electron-updater')
+var leasepath = '';
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
@@ -59,59 +60,21 @@ ipcMain.on('leasedata', function (e, leasedata) {
 
   console.log(leasedata);
 
-  var leasedata = {
-    LeaseHolders: 'Bryce Logue',
-    Occupants: ' ',
-    TotalOccupants: '1',
-    TotalAdults: '1',
-    TotalChildren: '0',
-    LeaseTerm: '12',
-    LeaseStart: '12/2/2021',
-    MonthlyRent: '$1,000.00',
-    SecurityDeposit: '$300.00',
-    Unit: '5010-202',
-    StreetName: '',
-    PropertyName: 'Glenbrook West',
-    PropertyOwner: 'WJM',
-    Utilities: 'No Utility',
-    WasherAndDryer: 'Included',
-    PetType: '1 - Cat',
-    PetDeposit: '$300.00',
-    PetPayable: 'Already Paid',
-    Office: 'glenbrook'
-  }
-
-  //Retype all Lease Docs. Combine Audubon and PineRidge Docs as they share same pool and fitness pages. Remove Concession options
-
-  const office = leasedata.Office;
-
   // Uses Lease Data and leasetemp.html to make Lease PDF
   async function createPDF(leasedata) {
 
     const desktopDir = `${homedir}/Desktop`;
 
-    if (leasedata.ConcessionAmount === 'none' && leasedata.PetType === 'none') {
-
-      var templateHtml = fs.readFileSync(path.join(process.cwd(), "/resources/" + office + "/leasenopetnocon.html"), 'utf8');
-
+    if (leasedata.Office === 'Glenbrook') {
+      leasepath = '/resources/glenbrook/'
     } else {
+      leasepath = '/resources/'
+    }
 
-      if (leasedata.ConcessionAmount === 'none') {
-
-        var templateHtml = fs.readFileSync(path.join(process.cwd(), "/resources/" + office + "/leasenocon.html"), 'utf8');
-
-      } else {
-
-        if (leasedata.PetType === 'none') {
-
-          var templateHtml = fs.readFileSync(path.join(process.cwd(), "/resources/" + office + "/leasenopet.html"), 'utf8');
-
-        } else {
-
-          var templateHtml = fs.readFileSync(path.join(process.cwd(), "/resources/Lease.html"), 'utf8');
-
-        }
-      }
+    if (leasedata.PetType === '') {
+      var templateHtml = fs.readFileSync(path.join(process.cwd(), leasepath + "Leasenopet.html"), 'utf8');
+    } else {
+      var templateHtml = fs.readFileSync(path.join(process.cwd(), leasepath + "Lease.html"), 'utf8');
     }
 
     var template = handlebars.compile(templateHtml);
