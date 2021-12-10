@@ -14,6 +14,7 @@ Please follow the below steps:
 NOTE: All data files for Lease Gen can be found at "C:\Program Files\Lease Gen"
 
 ### How Do I Uninstall Lease Gen?
+Please follow the below steps:  
 1. Click the windows key on your keyboard
 2. Type in "Lease"
 3. On the right hand side it should say Uninstall, Click that and "Programs and Features" should open
@@ -23,7 +24,11 @@ NOTE: All data files for Lease Gen can be found at "C:\Program Files\Lease Gen"
 
 ### How Do I Use Lease Gen?
 NOTE: Due to Lease Gen being in constant development, all options are subject to change after each new version.   
-Please follow the below steps:
+Please follow the below steps:  
+1. Open Lease Gen
+2. Fill in all blank spaces
+3. If no data is entered for Pets, the addendum will be removed from the template
+4. Finish by clicking 'Submit' this will make a PDF located on your desktop
 
 ### What Do I Do If A Lease Does Not Generate?
 Stay calm, If this happens try closing Lease Gen and relaunching. Proceed to fill in all data then click the center of the submit button (This has been a problem in the past).

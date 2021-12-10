@@ -109,8 +109,8 @@
         <input style="width: 23%; float: right;" type="submit" value="Submit">
         <select style="width: 24%; float: right;" name="Office" id="Office" onchange="getOffice()">
             <option value="Glenbrook">Glenbrook</option>
-            <option value="Pineridge">Pine Ridge</option>
-            <option value="Audubon">Audubon</option>
+            <option value="Pine Ridge">Pine Ridge</option>
+            <option value="Audubon Lake">Audubon</option>
             <!-- <option value="lancaster">Lancaster</option> -->
         </select>
     </form>
@@ -187,24 +187,23 @@
                     "Avalon East", "Avalon West", "Lenox East", "Lenox West", "Bradford Ridge", "Dupont Circle"
                 ];
                 propOwners = {
-                    'THIS IS WRONG PLEASE CHANGE': 'Property Owner',
-                    'Ticon Properties LLC': 'Ticon Properties LLC',
-                    'Glenbrook East LLC': 'Glenbrook East',
-                    "WJM Holdings III LLC": 'Glenbrook West',
-                    'WJM Holdings II LLC': 'Glenbrook West II',
-                    'Ticon Thomas Partnership': 'Pickett Square',
-                    'Hawks Nest LLC': 'Hawks Nest',
-                    'Avalon at Bridgefield Apartments LLC': 'Avalon East',
-                    'Meca Properties LLC': 'Avalon West',
-                    'Lenox East LLC': 'Lenox East',
-                    'Lenox West LLC': 'Lenox West',
-                    'Mattie Inc': 'Bradford Ridge',
-                    'Ticon Inc': 'Dupont Circle & 200 Andrews Road'
+                    "Ticon Properties LLC": "Ticon Properties LLC",
+                    "Glenbrook East LLC": "Glenbrook East",
+                    "WJM Holdings III LLC": "Glenbrook West",
+                    "WJM Holdings II LLC": "Glenbrook West II",
+                    "Ticon Thomas Partnership": "Pickett Square",
+                    "Hawks Nest LLC": "Hawks Nest",
+                    "Avalon at Bridgefield Apartments LLC": "Avalon East",
+                    "Meca Properties LLC": "Avalon West",
+                    "Lenox East LLC": "Lenox East",
+                    "Lenox West LLC": "Lenox West",
+                    "Mattie Inc": "Bradford Ridge",
+                    "Ticon Inc": "Dupont Circle & 200 Andrews Road"
                 }
-            } else if (x === "Pineridge") {
+            } else if (x === "Pine Ridge") {
                 propNames = ["Pine Ridge", "Taylor's Pond", "Sutton Station Residential"]
                 propOwners = ["Ticon Properties LLC"]
-            } else if (x === "Audubon") {
+            } else if (x === "Audubon Lake") {
                 propNames = ["Audubon Lake", "Fox Chase", "Lochridge", "Bentley Ridge", "Highgate Townhomes"]
                 propOwners = ["Ticon Properties LLC"]
             }
@@ -216,7 +215,7 @@
 
             if (x === "Glenbrook") {
                 for (var item in propOwners) {
-                    propO += "<option value=" + `${item}` + ">" + `${propOwners[item]}` + "</option>"
+                    propO += "<option value=" + `"${item}"` + ">" + `${propOwners[item]}` + "</option>"
                 }
             } else {
                 for (var item of propOwners) {
