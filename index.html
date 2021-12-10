@@ -45,13 +45,13 @@
                     <p><input placeholder="Lease Start" oninput="this.className = ''" id="LeaseStart" name="LeaseStart"
                             onchange="getTerm()"></p>
                     <p><input placeholder="Lease End" oninput="this.className = ''" id="LeaseEnd" name="LeaseEnd"
-                            disabled></p>
+                        readonly="readonly"></p>
                 </div>
                 <div class="row">
                     <p><input placeholder="Monthly Rent" oninput="this.className = ''" id="MonthlyRent"
                             name="MonthlyRent" onchange="getMoney()"></p>
                     <p><input placeholder="Rent Term" oninput="this.className = ''" id="RentTerm" name="RentTerm"
-                            disabled></p>
+                        readonly="readonly"></p>
                     <p><input placeholder="Security Deposit" oninput="this.className = ''" id="SecurityDeposit"
                             name="SecurityDeposit" onchange="getDeposit()"></p>
                 </div>
@@ -103,8 +103,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- FIX Submit button style. FIX save office choice to prevent changing each time -->
 
         <input style="width: 23%; float: right;" type="submit" value="Submit">
         <select style="width: 24%; float: right;" name="Office" id="Office" onchange="getOffice()">
