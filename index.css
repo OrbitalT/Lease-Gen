@@ -25,6 +25,10 @@ input {
     cursor: pointer;
 }
 
+/* input[type="file"] {
+    display: none;
+} */
+
 select {
     padding: 10px;
     width: 100%;

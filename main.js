@@ -1,5 +1,6 @@
 // FIX Submit button style to add depth. FIX save office choice to prevent changing each time
 // 3.0.0 Mass Lease gen from list
+// Seperate all addendums into files which can get loaded in
 // 4.0.0 Add ability to Edit Lease, Properties, Offices, Owners, ETC
 
 const {
@@ -34,7 +35,10 @@ function createWindow() {
   var menu = Menu.buildFromTemplate([{
     label: 'Menu',
     submenu: [{
-        label: 'Restart'
+        label: 'CSV',
+        click() {
+          openCSVWindow()
+        }
       },
       {
         label: 'Docs',
@@ -47,6 +51,9 @@ function createWindow() {
         type: 'separator'
       },
       {
+        role: 'toggleDevTools'
+      },
+      {
         label: 'Exit',
         click() {
           app.quit()
@@ -55,6 +62,34 @@ function createWindow() {
     ]
   }])
   Menu.setApplicationMenu(menu);
+
+  var newWindow = null
+
+  function openCSVWindow() {
+    if (newWindow) {
+      newWindow.focus()
+      return
+    }
+
+    newWindow = new BrowserWindow({
+      width: 600,
+      height: 400,
+      resizable: true,
+      title: '',
+      minimizable: false,
+      fullscreenable: false,
+      webPreferences: {
+        nodeIntegration: true,
+        contextIsolation: false,
+      }
+    })
+
+    newWindow.loadURL(path.join(__dirname, 'csv.html'))
+
+    newWindow.on('closed', function () {
+      newWindow = null
+    })
+  }
 
   mainWindow.loadFile('index.html')
 

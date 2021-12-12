@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+</head>
+
+<body>
+    <form id="csvForm">
+        <input type="file" id="csvFile" accept=".csv" />
+        <br />
+        <input type="submit" value="Submit" />
+    </form>
+
+    <script>
+        const csv = require('csv-parser')
+        const fs = require('fs')
+        const path = require('path')
+        var pdf = require('html-pdf')
+        const handlebars = require("handlebars")
+        const homedir = require('os').homedir()
+
+        const csvForm = document.getElementById("csvForm");
+        const csvFile = document.getElementById("csvFile");
+        var leasepath = '';
+        var csvData = [];
+
+        csvForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const input = csvFile.files[0];
+
+            console.log(input.path);
+
+            fs.createReadStream(input.path)
+                .pipe(csv())
+                .on('data', (data) => csvData.push(data))
+                .on('end', () => {
+                    // console.log(csvData);
+
+                    csvData.forEach(leasedata => {
+                        // console.log(leasedata);
+
+                        //Expand on data coming in. Listed below
+                        //LeaseHolders,Occupants,TotalAdults,TotalChildren,LeaseTerm,LeaseStart,MonthlyRent,SecurityDeposit,Unit,PropertyName,Utilities,WasherAndDryer,PetType,PetDeposit,PetPayable
+
+                        //Data to find is below.
+                        //TotalOccupants,LeaseEnd,RentTerm,StreetName,PropertyOwner,Office
+
+                        //TotalOccupants
+                        console.log('Total: ' + leasedata.TotalAdults + leasedata.TotalChildren);
+
+                        //LeaseEnd
+                        console.log('End Date; ' + leasedata.LeaseTerm * leasedata.LeaseStart);
+
+                        //RentTerm
+                        console.log('Rent Term: ' + leasedata.LeaseTerm * leasedata.MonthlyRent);
+
+                        //SecurityDeposit
+                        console.log();
+
+                        //PetDeposit
+                        console.log();
+
+                        // async function createPDF(leasedata) {
+
+                        //     const desktopDir = `${homedir}/Desktop`;
+
+                        //     if (leasedata.Office === 'Glenbrook') {
+                        //         leasepath = '/resources/glenbrook/'
+                        //     } else {
+                        //         leasepath = '/resources/'
+                        //     }
+
+                        //     if (leasedata.PetType === '') {
+                        //         var templateHtml = fs.readFileSync(path.join(process.cwd(),
+                        //             leasepath +
+                        //             "Leasenopet.html"), 'utf8');
+                        //     } else {
+                        //         var templateHtml = fs.readFileSync(path.join(process.cwd(),
+                        //             leasepath +
+                        //             "Lease.html"), 'utf8');
+                        //     }
+
+                        //     var template = handlebars.compile(templateHtml);
+                        //     var html = template(leasedata);
+
+                        //     var pdfPath = path.join(desktopDir,
+                        //         `${leasedata.LeaseHolders}-${leasedata.Unit}.pdf`);
+
+                        //     var options = {
+                        //         format: 'Letter',
+                        //         border: "5mm"
+                        //     };
+
+                        //     pdf.create(html, options).toFile(pdfPath, function (err, res) {
+                        //         if (err) return console.log(err);
+                        //         console.log(res);
+                        //     });
+                        // }
+                        // createPDF(leasedata);
+                    });
+                });
+        });
+    </script>
+
+</body>
+
+</html>

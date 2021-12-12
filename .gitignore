@@ -4,3 +4,5 @@ out/
 electron-builder.yml
 dist/
 index
+testing/
+offices/
