@@ -25,7 +25,7 @@ process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 1200,
-    height: 450,
+    height: 510,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,

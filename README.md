@@ -41,3 +41,8 @@ If the above Items do not work please follow [How Do I Uninstall Lease Gen](#how
 If in the future I (Bryce) no longer work with the company, you can reach me via email 'brycelogue@gmail.com' and i will do my best to make the app support your needed changes.  
 
 Hopefully I think ahead of time and add in the ability to edit the Properties, Offices and Lease data. Or Lease generation is switched over the the managment program.
+
+### Todo
+1. csv PLEASE!!!! (Add, Download, View, Edit) order that needs to be added
+2. Add all addendums
+3. Garages (Sutton)
