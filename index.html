@@ -45,18 +45,19 @@
                     <p><input placeholder="Lease Start" oninput="this.className = ''" id="LeaseStart" name="LeaseStart"
                             onchange="getTerm()"></p>
                     <p><input placeholder="Lease End" oninput="this.className = ''" id="LeaseEnd" name="LeaseEnd"
-                        readonly="readonly"></p>
+                            readonly="readonly"></p>
                 </div>
                 <div class="row">
                     <p><input placeholder="Monthly Rent" oninput="this.className = ''" id="MonthlyRent"
                             name="MonthlyRent" onchange="getMoney()"></p>
                     <p><input placeholder="Rent Term" oninput="this.className = ''" id="RentTerm" name="RentTerm"
-                        readonly="readonly"></p>
+                            readonly="readonly"></p>
                     <p><input placeholder="Security Deposit" oninput="this.className = ''" id="SecurityDeposit"
                             name="SecurityDeposit" onchange="getDeposit()"></p>
                 </div>
                 <div class="row">
-                    <p><input type="number" placeholder="Number of Cards" oninput="this.className = ''" name="TotalCards"></p>
+                    <p><input type="number" placeholder="Number of Cards" oninput="this.className = ''"
+                            name="TotalCards"></p>
                     <p><input type="number" placeholder="Card 1" oninput="this.className = ''" name="CardOne"></p>
                     <p><input type="number" placeholder="Card 2" oninput="this.className = ''" name="CardTwo"></p>
                 </div>
@@ -119,6 +120,20 @@
     </form>
 
     <script>
+        var select = document.getElementById("Office");
+        var selectOption = select.options[select.selectedIndex];
+        var lastSelected = localStorage.getItem('select');
+
+        if (lastSelected) {
+            select.value = lastSelected;
+        }
+
+        select.onchange = function () {
+            lastSelected = select.options[select.selectedIndex].value;
+            console.log(lastSelected);
+            localStorage.setItem('select', lastSelected);
+        }
+
         //Security Deposit
         function getDeposit() {
 
@@ -180,9 +195,14 @@
 
         getTerm();
 
-        //Dynamic Offices
+        //Dynamic Offices and Save Data
         function getOffice() {
             var x = document.getElementById("Office").value;
+
+            //Save Office Session
+            // localStorage.setItem('Office', x);
+            // console.log(localStorage.getItem("Office"));
+
             var propNames;
             var propOwners;
             if (x === "Glenbrook") {
