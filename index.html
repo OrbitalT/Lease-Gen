@@ -120,14 +120,13 @@
     </form>
 
     <script>
+        //Save Office Session
         var select = document.getElementById("Office");
         var selectOption = select.options[select.selectedIndex];
         var lastSelected = localStorage.getItem('select');
-
         if (lastSelected) {
             select.value = lastSelected;
         }
-
         select.onchange = function () {
             lastSelected = select.options[select.selectedIndex].value;
             console.log(lastSelected);
@@ -195,13 +194,9 @@
 
         getTerm();
 
-        //Dynamic Offices and Save Data
+        //Dynamic Offices
         function getOffice() {
             var x = document.getElementById("Office").value;
-
-            //Save Office Session
-            // localStorage.setItem('Office', x);
-            // console.log(localStorage.getItem("Office"));
 
             var propNames;
             var propOwners;
