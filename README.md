@@ -46,3 +46,5 @@ Hopefully I think ahead of time and add in the ability to edit the Properties, O
 1. csv PLEASE!!!! (Add, Download, View, Edit) order that needs to be added
 2. Add all addendums
 3. Garages (Sutton)
+4. Please Wait After Submition
+5. Issue with loading times
