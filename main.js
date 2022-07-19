@@ -129,7 +129,11 @@ ipcMain.on('leasedata', function (e, leasedata) {
     const desktopDir = `${homedir}/Desktop`;
 
     if (leasedata.Office === 'Glenbrook') {
-      leasepath = '/resources/glenbrook/'
+      if (leasedata.PropertyName === 'Bradford Ridge') {
+        leasepath = '/resources/glenbrook/Bradford/'
+      } else {
+        leasepath = '/resources/glenbrook/'
+      }
     } else {
       leasepath = '/resources/'
     }
