@@ -1,8 +1,3 @@
-// FIX Submit button style to add depth. FIX save office choice to prevent changing each time
-// 3.0.0 Mass Lease gen from list
-// Seperate all addendums into files which can get loaded in
-// 4.0.0 Add ability to Edit Lease, Properties, Offices, Owners, ETC
-
 const {
   app,
   BrowserWindow,

@@ -43,7 +43,7 @@ If in the future I (Bryce) no longer work with the company, you can reach me via
 Hopefully I think ahead of time and add in the ability to edit the Properties, Offices and Lease data. Or Lease generation is switched over the the managment program.
 
 ### Todo
-1. csv PLEASE!!!! (Add, Download, View, Edit) order that needs to be added
+1. CSV | upload csv file with multiple items and have it make all the leases
 2. Garages (Sutton)
-3. Please Wait After Submition
-4. Issue with loading times
+3. Add submittion loading icon
+4. User Login
