@@ -14,6 +14,7 @@ const fs = require('fs')
 var pdf = require('html-pdf')
 const handlebars = require("handlebars")
 const homedir = require('os').homedir()
+const axios = require('axios');
 const {
   autoUpdater
 } = require('electron-updater')
@@ -121,6 +122,25 @@ app.on('window-all-closed', function () {
 // Recives Lease Data from index.html
 ipcMain.on('leasedata', function (e, leasedata) {
 
+  const os = require('os');
+  const hn = os.hostname();
+  dt = new Date();
+  dtt = dt.toLocaleString();
+  // console.log('Computer:' + hn + ' Date:' + dtt);
+
+  const data = {
+    id: hn,
+    date: dtt
+  };
+
+  // axios.post('http://localhost:3005/count', data)
+  //   .then((res) => {
+  //     console.log(`Status: ${res.status}`);
+  //     console.log('Body: ', res.data);
+  //   }).catch((err) => {
+  //     console.error(err);
+  //   });
+
   console.log(leasedata);
 
   // Uses Lease Data and leasetemp.html to make Lease PDF
@@ -131,6 +151,8 @@ ipcMain.on('leasedata', function (e, leasedata) {
     if (leasedata.Office === 'Glenbrook') {
       if (leasedata.PropertyName === 'Bradford Ridge') {
         leasepath = '/resources/glenbrook/Bradford/'
+      } else if (leasedata.PropertyName === 'Dupont Circle') {
+        leasepath = '/resources/glenbrook/Dupont/'
       } else {
         leasepath = '/resources/glenbrook/'
       }
