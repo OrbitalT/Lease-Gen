@@ -14,12 +14,18 @@ const fs = require('fs')
 var pdf = require('html-pdf')
 const handlebars = require("handlebars")
 const homedir = require('os').homedir()
-const axios = require('axios');
 const {
   autoUpdater
 } = require('electron-updater')
 const shell = require('electron').shell
 var leasepath = '';
+const os = require('os');
+const hn = os.hostname();
+
+const {
+  Client,
+  Databases
+} = require("appwrite");
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
@@ -122,24 +128,41 @@ app.on('window-all-closed', function () {
 // Recives Lease Data from index.html
 ipcMain.on('leasedata', function (e, leasedata) {
 
-  const os = require('os');
-  const hn = os.hostname();
-  dt = new Date();
-  dtt = dt.toLocaleString();
-  // console.log('Computer:' + hn + ' Date:' + dtt);
+  const client = new Client()
+    .setEndpoint('https://fqkggzy316.nnukez.com/v1') // Your API Endpoint
+    .setProject('63f2857b2a911f0f957c') // Your project ID
+  ;
 
-  const data = {
-    id: hn,
-    date: dtt
-  };
+  const databases = new Databases(client);
 
-  // axios.post('http://localhost:3005/count', data)
-  //   .then((res) => {
-  //     console.log(`Status: ${res.status}`);
-  //     console.log('Body: ', res.data);
-  //   }).catch((err) => {
-  //     console.error(err);
-  //   });
+  //Create new item in database
+  const promise = databases.createDocument('63f28c799dea8d9b54aa', '63f28cba281eb44a6d47', hn, {
+    count: 1, office: leasedata.Office
+  });
+
+  promise.then(function (response) {
+    console.log(response); // Success
+  }, function (error) {
+    console.log(error); // Failure
+
+    const promise = databases.getDocument('63f28c799dea8d9b54aa', '63f28cba281eb44a6d47', hn);
+
+    promise.then(function (response) {
+      //if the computer already exists, update the count
+      const promise = databases.updateDocument('63f28c799dea8d9b54aa', '63f28cba281eb44a6d47', hn, {
+        count: response.count + 1
+      });
+
+      promise.then(function (response) {
+        console.log(response); // Success
+      }, function (error) {
+        console.log(error); // Failure
+      });
+
+    }, function (error) {
+      console.log(error); // Failure
+    });
+  });
 
   console.log(leasedata);
 

@@ -1,6 +1,6 @@
 {
   "name": "lease-gen",
-  "version": "2.2.1",
+  "version": "3.0.0",
   "description": "Lease Gen",
   "main": "main.js",
   "scripts": {
@@ -33,7 +33,7 @@
     "electron-builder": "^22.10.3"
   },
   "dependencies": {
-    "axios": "^1.2.1",
+    "appwrite": "^10.2.0",
     "csv-parser": "^3.0.0",
     "electron-squirrel-startup": "^1.0.0",
     "electron-updater": "^4.3.9",
