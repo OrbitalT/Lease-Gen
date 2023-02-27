@@ -4,6 +4,11 @@ const {
   ipcMain,
   Menu
 } = require('electron')
+const {
+  Client,
+  Databases,
+  Account
+} = require("appwrite")
 const path = require('path')
 const fs = require('fs')
 var pdf = require('html-pdf')
@@ -17,17 +22,19 @@ var leasepath = '';
 const os = require('os');
 const hn = os.hostname();
 
-const {
-  Client,
-  Databases
-} = require("appwrite");
+const client = new Client()
+  .setEndpoint('https://fqkggzy316.nnukez.com/v1') // Your API Endpoint
+  .setProject('63f2857b2a911f0f957c') // Your project ID
+;
+
+const account = new Account(client);
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 1200,
-    height: 510,
+    height: 750,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -93,7 +100,39 @@ function createWindow() {
     })
   }
 
-  mainWindow.loadFile('index.html')
+  mainWindow.loadFile('apps.html')
+
+  //Login
+
+  // const apptest = true;
+
+  // if (apptest == true) {
+  //   mainWindow.loadFile('apps.html')
+  // } else {
+
+  //   const promise = account.get();
+
+  //   promise.then(function (response) {
+  //     console.log(response);
+  //     mainWindow.loadFile('apps.html')
+  //   }, function (error) {
+  //     console.log(error);
+  //     mainWindow.loadFile('login.html')
+  //   });
+
+  // }
+
+  // ipcMain.on('userLogin', function (e, userLogin) {
+  //   const promise = account.createEmailSession(userLogin.email, userLogin.password);
+
+  //   promise.then(function (response) {
+  //     console.log(response);
+  //     mainWindow.loadFile('apps.html')
+  //   }, function (error) {
+  //     console.log(error);
+  //     mainWindow.loadFile('login.html')
+  //   });
+  // });
 
   mainWindow.once('ready-to-show', () => {
     autoUpdater.checkForUpdatesAndNotify();
@@ -123,16 +162,12 @@ app.on('window-all-closed', function () {
 // Recives Lease Data from index.html
 ipcMain.on('leasedata', function (e, leasedata) {
 
-  const client = new Client()
-    .setEndpoint('https://fqkggzy316.nnukez.com/v1') // Your API Endpoint
-    .setProject('63f2857b2a911f0f957c') // Your project ID
-  ;
-
   const databases = new Databases(client);
 
   //Create new item in database
   const promise = databases.createDocument('63f28c799dea8d9b54aa', '63f28cba281eb44a6d47', hn, {
-    count: 1, office: leasedata.Office
+    count: 1,
+    office: leasedata.Office
   });
 
   promise.then(function (response) {
