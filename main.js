@@ -11,8 +11,6 @@ const {
 } = require("appwrite")
 const path = require('path')
 const fs = require('fs')
-var pdf = require('html-pdf')
-const handlebars = require("handlebars")
 const homedir = require('os').homedir()
 const {
   autoUpdater
@@ -21,8 +19,13 @@ const shell = require('electron').shell
 var leasepath = '';
 const os = require('os');
 const hn = os.hostname();
-const { PDFDocument } = require('pdf-lib')
-const { readFile, writeFile } = require('fs').promises
+const {
+  PDFDocument
+} = require('pdf-lib')
+const {
+  readFile,
+  writeFile
+} = require('fs').promises
 const pdfPath = path.join(__dirname, '/resources/court/court.pdf')
 
 const client = new Client()
@@ -240,6 +243,9 @@ ipcMain.on('courtdata', function (e, courtdata) {
 
 // Recives Lease Data from leasegen.html
 ipcMain.on('leasedata', function (e, leasedata) {
+
+  var pdf = require('html-pdf')
+  const handlebars = require("handlebars")
 
   const databases = new Databases(client);
 
