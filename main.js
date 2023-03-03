@@ -40,7 +40,7 @@ process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 1200,
-    height: 750,
+    height: 970,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -48,22 +48,36 @@ function createWindow() {
   })
 
   var menu = Menu.buildFromTemplate([{
-    label: 'Menu',
+    label: 'menu',
     submenu: [{
-        label: 'CSV',
+        label: 'Home',
         click() {
-          openCSVWindow()
+          mainWindow.loadFile('apps.html')
         }
+      },
+      {
+        type: 'separator'
+      },
+      {
+        label: 'Lease-Gen',
+        click() {
+          mainWindow.loadFile('leasegen.html')
+        }
+      },
+      {
+        label: 'Court-Room',
+        click() {
+          mainWindow.loadFile('courtroom.html')
+        }
+      },
+      {
+        type: 'separator'
       },
       {
         label: 'Docs',
         click() {
           shell.openExternal('https://github.com/OrbitalT/Lease-Gen/blob/Master/README.md')
-        },
-        accelerator: 'Alt+D'
-      },
-      {
-        type: 'separator'
+        }
       },
       {
         role: 'toggleDevTools'
@@ -77,34 +91,6 @@ function createWindow() {
     ]
   }])
   Menu.setApplicationMenu(menu);
-
-  var newWindow = null
-
-  function openCSVWindow() {
-    if (newWindow) {
-      newWindow.focus()
-      return
-    }
-
-    newWindow = new BrowserWindow({
-      width: 600,
-      height: 400,
-      resizable: true,
-      title: '',
-      minimizable: false,
-      fullscreenable: false,
-      webPreferences: {
-        nodeIntegration: true,
-        contextIsolation: false,
-      }
-    })
-
-    newWindow.loadURL(path.join(__dirname, 'csv.html'))
-
-    newWindow.on('closed', function () {
-      newWindow = null
-    })
-  }
 
   mainWindow.loadFile('apps.html')
 
