@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <link rel="stylesheet" href="courtroom.css">
     <title>Court-Room</title>
 </head>
@@ -18,19 +19,19 @@
             <div class="row">
                 <div class="col-50">
                     <label for="name1">Name:</label><br>
-                    <input type="text" name="name1" id="name1"><br>
+                    <input type="text" name="name1" id="name1" required><br>
                     <label for="address1">Address:</label><br>
-                    <input type="text" name="address1" id="address1"><br>
+                    <input type="text" name="address1" id="address1" required><br>
                     <label for="address2">Address 2:</label><br>
                     <input type="text" name="address2" id="address2"><br>
                     <label for="city1">City:</label><br>
-                    <input type="text" name="city1" id="city1"><br>
+                    <input type="text" name="city1" id="city1" required><br>
                     <label for="state1">State:</label><br>
-                    <input type="text" name="state1" id="state1"><br>
+                    <input type="text" name="state1" id="state1" required><br>
                     <label for="zip1">Zip:</label><br>
-                    <input type="text" name="zip1" id="zip1"><br>
+                    <input type="text" name="zip1" id="zip1" required><br>
                     <label for="phone1">Phone:</label><br>
-                    <input type="text" name="phone1" id="phone1"><br>
+                    <input type="text" name="phone1" id="phone1" required><br>
                 </div>
 
                 <div id="person2" class="col-50">
@@ -62,14 +63,36 @@
 
                     <label for="owner">Owner:</label><br>
                     <select name="owner" id="owner">
-                        <option value="Ticon Properties LLC">Ticon Properties</option>
+                        <option value="ERROR">----Choose Property----</option>
+                        <option value="Glenbrook East LLC">Glenbrook East</option>
+                        <option value="Ticon Inc">Glenbrook West</option>
+                        <option value="WJM Holdings II LLC">Glenbrook West II</option>
+                        <option value="Garrett Road Properties LLC">Glenbrook West III</option>
+                        <option value="Ticon Thomas Partnership">Pickett Square</option>
+                        <option value="Hawks Nest LLC">Hawks Nest</option>
+                        <option value="Avalon at Bridgefield Apartments LLC">Avalon East</option>
+                        <option value="Meca Properties LLC">Avalon West</option>
+                        <!-- <option value="Vincent Street Properties LLC">Vincent</option> -->
+                        <option value="Lenox East LLC">Lenox East</option>
+                        <option value="Lenox West LLC">Lenox West</option>
+                        <option value="Mattie Inc">Bradford Ridge</option>
+                        <option value="Ticon Inc">Dupont Circle & 200 Andrews Road</option>
+                        <option value="ERROR">----Audubon----</option>
+                        <option value="Audubon Lake Apartments LLC">Audubon Lake</option>
+                        <option value="Highgate Townhomes LLC">Highgate Townhomes</option>
+                        <option value="Fox Chase & Lochridge LLC">Fox Chase & Lochridge</option>
+                        <option value="Bentley Ridge Land LLC">Bentley Ridge</option>
+                        <option value="ERROR">----Pineridge----</option>
+                        <option value="Pine Ridge Apartments of Durham LLC">Pine Ridge</option>
+                        <option value="Taylors Pond Land LLC">Taylors Pond</option>
+                        <option value="Ticon Properties LLC">Sutton Station</option>
                     </select><br>
 
                     <label for="propdesc">Property Description:</label><br>
-                    <input type="text" name="propdesc" id="propdesc"><br>
+                    <input type="text" name="propdesc" id="propdesc" required><br>
 
                     <label for="breachdesc">File Reason:</label><br>
-                    <input type="text" name="breachdesc" id="breachdesc"><br>
+                    <input type="text" name="breachdesc" id="breachdesc" required><br>
 
 
                     <label for="rentrate">Rent Rate:</label><br>
@@ -98,14 +121,12 @@
 
         </form>
 
-        <label for="secondPerson">Second Person</label><br>
+        <label for="secondPerson">Add Second Person</label>
         <input type="checkbox" name="secondPerson" id="secondPerson">
 
     </section>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
-    <script language="JavaScript" type="text/javascript">
+    <script>
         $('#person2').hide();
         $('#secondPerson').change(function () {
             if ($(this).prop('checked') === false) {
@@ -114,6 +135,16 @@
             if ($(this).prop('checked') === true) {
                 $('#person2').show();
             }
+        });
+
+                //Stops ENTER button
+                $(document).ready(function () {
+            $(window).keydown(function (event) {
+                if (event.keyCode == 13) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
         });
     </script>
 
