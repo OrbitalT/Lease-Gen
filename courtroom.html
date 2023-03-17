@@ -96,9 +96,9 @@
 
 
                     <label for="rentrate">Rent Rate:</label><br>
-                    <input type="text" name="rentrate" id="rentrate"><br>
+                    <input type="currency" value="0" name="rentrate" id="rentrate"><br>
                     <label for="rentpast">Rent Behind:</label><br>
-                    <input type="text" name="rentpast" id="rentpast"><br>
+                    <input type="currency2" value="0" name="rentpast" id="rentpast"><br>
                 </div>
                 <div class="col-50">
                     <label for="trialdate">Court Date:</label><br>
@@ -127,6 +127,83 @@
     </section>
 
     <script>
+        // Money Formating 1
+        var currencyInput = document.querySelector('input[type="currency"]')
+        var currency = 'USD' // https://www.currency-iso.org/dam/downloads/lists/list_one.xml
+
+        // format inital value
+        onBlur({
+            target: currencyInput
+        })
+
+        // bind event listeners
+        currencyInput.addEventListener('focus', onFocus)
+        currencyInput.addEventListener('blur', onBlur)
+
+
+        function localStringToNumber(s) {
+            return Number(String(s).replace(/[^0-9.-]+/g, ""))
+        }
+
+        function onFocus(e) {
+            var value = e.target.value;
+            e.target.value = value ? localStringToNumber(value) : ''
+        }
+
+        function onBlur(e) {
+            var value = e.target.value
+
+            var options = {
+                maximumFractionDigits: 2,
+                currency: currency,
+                style: "currency",
+                currencyDisplay: "symbol"
+            }
+
+            e.target.value = (value || value === 0) ?
+                localStringToNumber(value).toLocaleString(undefined, options) :
+                ''
+        }
+
+        // Money Formating 2
+        var currencyInput = document.querySelector('input[type="currency2"]')
+        var currency = 'USD' // https://www.currency-iso.org/dam/downloads/lists/list_one.xml
+
+        // format inital value
+        onBlur({
+            target: currencyInput
+        })
+
+        // bind event listeners
+        currencyInput.addEventListener('focus', onFocus)
+        currencyInput.addEventListener('blur', onBlur)
+
+
+        function localStringToNumber(s) {
+            return Number(String(s).replace(/[^0-9.-]+/g, ""))
+        }
+
+        function onFocus(e) {
+            var value = e.target.value;
+            e.target.value = value ? localStringToNumber(value) : ''
+        }
+
+        function onBlur(e) {
+            var value = e.target.value
+
+            var options = {
+                maximumFractionDigits: 2,
+                currency: currency,
+                style: "currency",
+                currencyDisplay: "symbol"
+            }
+
+            e.target.value = (value || value === 0) ?
+                localStringToNumber(value).toLocaleString(undefined, options) :
+                ''
+        }
+
+        // Shows second person form entrys
         $('#person2').hide();
         $('#secondPerson').change(function () {
             if ($(this).prop('checked') === false) {
@@ -137,8 +214,8 @@
             }
         });
 
-                //Stops ENTER button
-                $(document).ready(function () {
+        // Stops ENTER button
+        $(document).ready(function () {
             $(window).keydown(function (event) {
                 if (event.keyCode == 13) {
                     event.preventDefault();

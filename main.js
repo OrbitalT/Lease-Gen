@@ -29,8 +29,8 @@ const {
 const pdfPath = path.join(__dirname, '/resources/court/court.pdf')
 
 const client = new Client()
-  .setEndpoint('https://fqkggzy316.nnukez.com/v1') // Your API Endpoint
-  .setProject('63f2857b2a911f0f957c') // Your project ID
+  .setEndpoint('https://fqkggzy316.nnukez.com/v1')
+  .setProject('63f2857b2a911f0f957c')
 ;
 
 const account = new Account(client);

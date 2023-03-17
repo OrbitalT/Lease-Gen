@@ -17,7 +17,7 @@
         <div class="shape"></div>
     </div>
 
-    <div id="item">
+    <!-- <div id="item">
         <h3>ORMS</h3>
         <a href="leasegen.html"><button style="color: black;">Lease-Gen</button></a>
         <a href="courtroom.html"><button style="color: black;">Court-Room</button></a>
@@ -25,7 +25,7 @@
             <a href="https://github.com/OrbitalT/Lease-Gen/blob/Master/README.md"><div class="go">Docs</div></a>
             <div class="fb">Usage</div>
         </div>
-    </div>
+    </div> -->
 
     
 <!-- 
@@ -35,6 +35,49 @@
         <a href="courtroom.html"><button type="button">Court-Room</button></a>
 
     </div> -->
+
+    <script>
+        //Updater and Electron connection
+        const fs = require('fs');
+        const path = require('path');
+        const electron = require('electron');
+        const {
+            ipcRenderer
+        } = electron;
+
+        const version = document.getElementById('version');
+
+        ipcRenderer.send('app_version');
+        ipcRenderer.on('app_version', (event, arg) => {
+            ipcRenderer.removeAllListeners('app_version');
+            version.innerText = 'Lease Gen - v' + arg.version;
+        });
+
+        const notification = document.getElementById('notification');
+        const message = document.getElementById('message');
+        const restartButton = document.getElementById('restart-button');
+
+        ipcRenderer.on('update_available', () => {
+            ipcRenderer.removeAllListeners('update_available');
+            message.innerText = 'A new update is available. Downloading now...';
+            notification.classList.remove('hidden');
+        });
+
+        ipcRenderer.on('update_downloaded', () => {
+            ipcRenderer.removeAllListeners('update_downloaded');
+            message.innerText = 'Update Downloaded. It will be installed on restart. Restart now?';
+            restartButton.classList.remove('hidden');
+            notification.classList.remove('hidden');
+        });
+
+        function closeNotification() {
+            notification.classList.add('hidden');
+        }
+
+        function restartApp() {
+            ipcRenderer.send('restart_app');
+        }
+    </script>
 
 </body>
 
