@@ -6,7 +6,8 @@ const {
 } = require('electron')
 const {
   Client,
-  Databases
+  Databases,
+  Account
 } = require("appwrite")
 const path = require('path')
 const fs = require('fs')
@@ -22,12 +23,14 @@ const client = new Client()
   .setEndpoint('https://fqkggzy316.nnukez.com/v1')
   .setProject('63f2857b2a911f0f957c');
 
+const account = new Account(client);
+
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 1200,
-    height: 550,
+    height: 750,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -77,9 +80,41 @@ function createWindow() {
     //   }
     // ]
   }])
+
   Menu.setApplicationMenu(menu);
 
-  mainWindow.loadFile('nolicense.html')
+  // mainWindow.loadFile('nolicense.html')
+
+  //Login
+  const apptest = false;
+
+  if (apptest == true) {
+    mainWindow.loadFile('leasegen.html')
+  } else {
+
+    const promise = account.get();
+
+    promise.then(function (response) {
+      console.log(response);
+      mainWindow.loadFile('nolicense.html')
+    }, function (error) {
+      console.log(error);
+      mainWindow.loadFile('login.html')
+    });
+
+  }
+
+  ipcMain.on('userLogin', function (e, userLogin) {
+    const promise = account.createEmailSession(userLogin.email, userLogin.password);
+
+    promise.then(function (response) {
+      console.log(response);
+      mainWindow.loadFile('nolicense.html')
+    }, function (error) {
+      console.log(error);
+      mainWindow.loadFile('login.html')
+    });
+  });
 
   mainWindow.once('ready-to-show', () => {
     autoUpdater.checkForUpdatesAndNotify();
@@ -135,6 +170,7 @@ ipcMain.on('leasedata', function (e, leasedata) {
 
       promise.then(function (response) {
         console.log(response); // Success
+        createPDF(leasedata);
       }, function (error) {
         console.log(error); // Failure
       });
@@ -185,9 +221,6 @@ ipcMain.on('leasedata', function (e, leasedata) {
     });
 
   }
-
-  createPDF(leasedata);
-
 });
 
 ipcMain.on('app_version', (event) => {
