@@ -6,8 +6,7 @@ const {
 } = require('electron')
 const {
   Client,
-  Databases,
-  Account
+  Databases
 } = require("appwrite")
 const path = require('path')
 const fs = require('fs')
@@ -15,24 +14,13 @@ const homedir = require('os').homedir()
 const {
   autoUpdater
 } = require('electron-updater')
-const shell = require('electron').shell
 var leasepath = '';
 const os = require('os');
 const hn = os.hostname();
-const {
-  PDFDocument
-} = require('pdf-lib')
-const {
-  readFile,
-  writeFile
-} = require('fs').promises
-const pdfPath = path.join(__dirname, '/resources/court/court.pdf')
 
 const client = new Client()
   .setEndpoint('https://fqkggzy316.nnukez.com/v1')
   .setProject('63f2857b2a911f0f957c');
-
-const account = new Account(client);
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
