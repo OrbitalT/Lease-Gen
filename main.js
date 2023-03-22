@@ -58,18 +58,18 @@ function createWindow() {
       {
         type: 'separator'
       },
-      {
-        label: 'Lease-Gen',
-        click() {
-          mainWindow.loadFile('leasegen.html')
-        }
-      },
-      {
-        label: 'Court-Room',
-        click() {
-          mainWindow.loadFile('courtroom.html')
-        }
-      },
+      // {
+      //   label: 'Lease-Gen',
+      //   click() {
+      //     mainWindow.loadFile('leasegen.html')
+      //   }
+      // },
+      // {
+      //   label: 'Court-Room',
+      //   click() {
+      //     mainWindow.loadFile('courtroom.html')
+      //   }
+      // },
       {
         type: 'separator'
       },

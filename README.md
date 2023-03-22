@@ -1,5 +1,5 @@
-# Lease Gen Manual
-### What is Lease Gen?  
+# Orbital Rental Management Software "ORMS"
+### What is ORMS?  
 Lease Gen is the result of Bryce, an annoyed person who hates Microsoft's mailing list function in Word.    
 
 ### How does Lease Gen Work?  
