@@ -30,8 +30,7 @@ const pdfPath = path.join(__dirname, '/resources/court/court.pdf')
 
 const client = new Client()
   .setEndpoint('https://fqkggzy316.nnukez.com/v1')
-  .setProject('63f2857b2a911f0f957c')
-;
+  .setProject('63f2857b2a911f0f957c');
 
 const account = new Account(client);
 
@@ -40,7 +39,7 @@ process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 1200,
-    height: 970,
+    height: 550,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -49,50 +48,50 @@ function createWindow() {
 
   var menu = Menu.buildFromTemplate([{
     label: 'menu',
-    submenu: [{
-        label: 'Home',
-        click() {
-          mainWindow.loadFile('apps.html')
-        }
-      },
-      {
-        type: 'separator'
-      },
-      // {
-      //   label: 'Lease-Gen',
-      //   click() {
-      //     mainWindow.loadFile('leasegen.html')
-      //   }
-      // },
-      // {
-      //   label: 'Court-Room',
-      //   click() {
-      //     mainWindow.loadFile('courtroom.html')
-      //   }
-      // },
-      {
-        type: 'separator'
-      },
-      {
-        label: 'Docs',
-        click() {
-          shell.openExternal('https://github.com/OrbitalT/Lease-Gen/blob/Master/README.md')
-        }
-      },
-      {
-        role: 'toggleDevTools'
-      },
-      {
-        label: 'Exit',
-        click() {
-          app.quit()
-        }
-      }
-    ]
+    // submenu: [{
+    //     label: 'Home',
+    //     click() {
+    //       mainWindow.loadFile('apps.html')
+    //     }
+    //   },
+    //   {
+    //     type: 'separator'
+    //   },
+    //   // {
+    //   //   label: 'Lease-Gen',
+    //   //   click() {
+    //   //     mainWindow.loadFile('leasegen.html')
+    //   //   }
+    //   // },
+    //   // {
+    //   //   label: 'Court-Room',
+    //   //   click() {
+    //   //     mainWindow.loadFile('courtroom.html')
+    //   //   }
+    //   // },
+    //   {
+    //     type: 'separator'
+    //   },
+    //   {
+    //     label: 'Docs',
+    //     click() {
+    //       shell.openExternal('https://github.com/OrbitalT/Lease-Gen/blob/Master/README.md')
+    //     }
+    //   },
+    //   {
+    //     role: 'toggleDevTools'
+    //   },
+    //   {
+    //     label: 'Exit',
+    //     click() {
+    //       app.quit()
+    //     }
+    //   }
+    // ]
   }])
   Menu.setApplicationMenu(menu);
 
-  mainWindow.loadFile('apps.html')
+  mainWindow.loadFile('leasegen.html')
 
   //Login
 
@@ -151,81 +150,81 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
 
-// Recives Court Data from courtroom.html
-ipcMain.on('courtdata', function (e, courtdata) {
+// // Recives Court Data from courtroom.html
+// ipcMain.on('courtdata', function (e, courtdata) {
 
-  const databases = new Databases(client);
+//   const databases = new Databases(client);
 
-  //Create new item in database
-  const promise = databases.createDocument('63fc40f76313d97cd7b9', '63fc4114414d0b8ebac1', hn, {
-    count: 1,
-    office: courtdata.Office
-  });
+//   //Create new item in database
+//   const promise = databases.createDocument('63fc40f76313d97cd7b9', '63fc4114414d0b8ebac1', hn, {
+//     count: 1,
+//     office: courtdata.Office
+//   });
 
-  promise.then(function (response) {
-    console.log(response); // Success
-  }, function (error) {
-    console.log(error); // Failure
+//   promise.then(function (response) {
+//     console.log(response); // Success
+//   }, function (error) {
+//     console.log(error); // Failure
 
-    const promise = databases.getDocument('63fc40f76313d97cd7b9', '63fc4114414d0b8ebac1', hn);
+//     const promise = databases.getDocument('63fc40f76313d97cd7b9', '63fc4114414d0b8ebac1', hn);
 
-    promise.then(function (response) {
-      //if the computer already exists, update the count
-      const promise = databases.updateDocument('63fc40f76313d97cd7b9', '63fc4114414d0b8ebac1', hn, {
-        count: response.count + 1
-      });
+//     promise.then(function (response) {
+//       //if the computer already exists, update the count
+//       const promise = databases.updateDocument('63fc40f76313d97cd7b9', '63fc4114414d0b8ebac1', hn, {
+//         count: response.count + 1
+//       });
 
-      promise.then(function (response) {
-        console.log(response); // Success
-      }, function (error) {
-        console.log(error); // Failure
-      });
+//       promise.then(function (response) {
+//         console.log(response); // Success
+//       }, function (error) {
+//         console.log(error); // Failure
+//       });
 
-    }, function (error) {
-      console.log(error); // Failure
-    });
-  });
+//     }, function (error) {
+//       console.log(error); // Failure
+//     });
+//   });
 
-  console.log(courtdata);
+//   console.log(courtdata);
 
-  const desktopDir = `${homedir}/Desktop`;
+//   const desktopDir = `${homedir}/Desktop`;
 
-  var pdfCourtPath = path.join(desktopDir, `${courtdata.name1}.pdf`);
+//   var pdfCourtPath = path.join(desktopDir, `${courtdata.name1}.pdf`);
 
-  async function createPDF(input, output) {
+//   async function createPDF(input, output) {
 
-    try {
+//     try {
 
-      const pdfDoc = await PDFDocument.load(await readFile(input))
+//       const pdfDoc = await PDFDocument.load(await readFile(input))
 
-      // const feildNames = pdfDoc.getForm().getFields().map((field) => field.getName())
+//       // const feildNames = pdfDoc.getForm().getFields().map((field) => field.getName())
 
-      // console.log(feildNames)
+//       // console.log(feildNames)
 
-      // Modify the PDF here
-      for (const field in courtdata) {
-        const fieldName = `${field}`
-        const fieldValue = courtdata[field]
+//       // Modify the PDF here
+//       for (const field in courtdata) {
+//         const fieldName = `${field}`
+//         const fieldValue = courtdata[field]
 
-        const textWidget = pdfDoc.getForm().getTextField(fieldName)
-        if (textWidget) {
-          textWidget.setText(fieldValue)
-        }
-      }
+//         const textWidget = pdfDoc.getForm().getTextField(fieldName)
+//         if (textWidget) {
+//           textWidget.setText(fieldValue)
+//         }
+//       }
 
-      const pdfBytes = await pdfDoc.save()
+//       const pdfBytes = await pdfDoc.save()
 
-      await writeFile(output, pdfBytes)
-      console.log('PDF created successfully');
+//       await writeFile(output, pdfBytes)
+//       console.log('PDF created successfully');
 
-    } catch (err) {
-      console.log(err)
-    }
-  }
+//     } catch (err) {
+//       console.log(err)
+//     }
+//   }
 
-  createPDF(pdfPath, pdfCourtPath)
+//   createPDF(pdfPath, pdfCourtPath)
 
-});
+// });
 
 // Recives Lease Data from leasegen.html
 ipcMain.on('leasedata', function (e, leasedata) {
