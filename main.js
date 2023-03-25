@@ -181,9 +181,9 @@ ipcMain.on("request-roaming-path", (event) => {
 // Recives Lease Data from leasegen.html
 ipcMain.on('leasedata', function (e, leasedata) {
   const {
-    createlease
+    createLease
   } = require('./src/functions/createlease.js');
-  createlease(leasedata, appwriteProjectID, appwriteDatabaseID, appwriteStorageID);
+  createLease(leasedata, appwriteProjectID, appwriteDatabaseID, appwriteStorageID);
 });
 
 ipcMain.on('app_version', (event) => {
