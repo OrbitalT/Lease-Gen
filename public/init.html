@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="login.css">
-    <title>Login</title>
+    <link rel="stylesheet" href="./css/login.css">
+    <title>Setup</title>
 
 </head>
 
@@ -17,23 +17,22 @@
         <div class="shape"></div>
     </div>
     <form>
-        <h3>Lease-Gen Login</h3>
+        <h3>Lease-Gen Setup</h3>
 
-        <label for="username">Email</label>
-        <input type="text" placeholder="Email" name="email" required>
+        <label for="projectID">Project ID</label>
+        <input type="text" placeholder="projectID" name="projectID" required>
 
-        <label for="password">Password</label>
-        <input type="password" placeholder="Password" name="password" required>
+        <label for="databaseID">Database ID</label>
+        <input type="text" placeholder="databaseID" name="databaseID" required>
+
+        <label for="storageID">Storgae ID</label>
+        <input type="text" placeholder="storageID" name="storageID" required>
 
         <button type="submit" value="Submit">Log In</button>
-        <div class="social">
-            <!-- <div class="go"><i class="fab fa-google"></i> Google</div>
-            <div class="fb"><i class="fab fa-facebook"></i> Facebook</div> -->
-        </div>
     </form>
 </body>
 
-<!-- <script>
+<script>
     //Stops ENTER button
     $(document).ready(function () {
         $(window).keydown(function (event) {
@@ -43,7 +42,7 @@
             }
         });
     });
-</script> -->
+</script>
 
 <script>
     //Updater and Electron connection
@@ -63,10 +62,10 @@
 
         const data = new FormData(event.target);
 
-        const userLogin = Object.fromEntries(data.entries());
-        console.log(userLogin);
+        const initSetup = Object.fromEntries(data.entries());
+        console.log(initSetup);
 
-        ipcRenderer.send('userLogin', userLogin);
+        ipcRenderer.send('initSetup', initSetup);
     }
 
     const form = document.querySelector('form');
