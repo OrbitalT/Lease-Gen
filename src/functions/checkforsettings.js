@@ -1,44 +1,42 @@
-const { app } = require('electron');
-const fs = require('fs');
+const {
+    app
+} = require('electron');
+const fs = require('fs').promises;
 const path = require('path');
+
 const roamingPath = path.join(app.getPath('userData'), 'resources');
 const settingsFilePath = path.join(roamingPath, 'settings.json');
 
-function checkAndCreateSettingsFile() {
+const defaultSettingsData = {
+    initSetupData: {
+        initSetupRequired: true,
+        projectID: '',
+        databaseID: '',
+        storageID: '',
+    },
+};
 
-    // Settings
-    function createSettingsFile() {
-        const settingsData = {
-            initSetupData: {
-                initSetupRequired: true,
-                projectID: '',
-                databaseID: '',
-                storageID: '',
-            },
-        };
-
-        fs.writeFile(settingsFilePath, JSON.stringify(settingsData, null, 2), (err) => {
-            if (err) {
-                console.error('Error while creating settings.json:', err);
-                return;
-            }
-            console.log('settings.json has been created successfully.');
-            app.relaunch()
-            app.exit()
-        });
+async function createSettingsFile() {
+    try {
+        await fs.writeFile(settingsFilePath, JSON.stringify(defaultSettingsData, null, 2));
+        console.log('settings.json has been created successfully.');
+        app.relaunch();
+        app.exit();
+    } catch (err) {
+        console.error('Error while creating settings.json:', err);
     }
+}
 
-    fs.access(settingsFilePath, fs.constants.F_OK, (err) => {
-        if (err) {
-            console.log('settings.json does not exist. Creating now...');
-            createSettingsFile();
-        } else {
-            console.log('settings.json exists.');
-        }
-    });
-
+async function checkAndCreateSettingsFile() {
+    try {
+        await fs.access(settingsFilePath);
+        console.log('settings.json exists.');
+    } catch (err) {
+        console.log('settings.json does not exist. Creating now...');
+        await createSettingsFile();
+    }
 }
 
 module.exports = {
-    checkAndCreateSettingsFile
+    checkAndCreateSettingsFile,
 };

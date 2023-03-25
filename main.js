@@ -26,7 +26,7 @@ const {
 
 const {
   logAppwriteProjectID
-} = require('./src/functions/checkfiles.js');
+} = require('./src/functions/checkforfiles.js');
 
 app.whenReady().then(() => {
   checkAndCreateSettingsFile();
@@ -180,7 +180,9 @@ ipcMain.on("request-roaming-path", (event) => {
 
 // Recives Lease Data from leasegen.html
 ipcMain.on('leasedata', function (e, leasedata) {
-  const { createlease } = require('./src/functions/createlease.js');
+  const {
+    createlease
+  } = require('./src/functions/createlease.js');
   createlease(leasedata, appwriteProjectID, appwriteDatabaseID, appwriteStorageID);
 });
 
