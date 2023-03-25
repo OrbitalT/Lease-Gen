@@ -196,62 +196,65 @@
 
         //Dynamic Offices
         function getOffice() {
-            const path = require('path');
+            const {
+                ipcRenderer
+            } = require("electron");
 
-            var x = document.getElementById("Office").value;
+            ipcRenderer.send("request-roaming-path");
 
-            const resourcePath = path.join(process.env.HOME + '\\AppData\\Roaming\\lease-gen\\resources\\');
+            ipcRenderer.on("receive-roaming-path", (event, roamingPath) => {
+                var x = document.getElementById("Office").value;
 
-            console.log(resourcePath);
+                var propNames;
+                var propOwners;
 
-            var propNames;
-            var propOwners;
+                fetch(roamingPath + '\\propertynames.json')
+                    .then(response => response.json())
+                    .then(data => {
 
-            fetch(resourcePath + 'propertynames.json')
-                .then(response => response.json())
-                .then(data => {
-
-                    if (x === "Glenbrook") {
-                        propNames = data.glenbrook
-                    } else if (x === "Pine Ridge") {
-                        propNames = data.pineridge
-                    } else if (x === "Audubon Lake") {
-                        propNames = data.audubon
-                    }
-                    var propN = ""
-                    for (var item of propNames) {
-                        propN += "<option>" + item + "</option>"
-                    }
-
-                    document.getElementById("PropertyName").innerHTML = propN;
-                })
-                .catch(error => console.error(error));
-
-            fetch(resourcePath + 'propertyowners.json')
-                .then(response => response.json())
-                .then(data => {
-
-                    if (x === "Glenbrook") {
-                        propOwners = data.glenbrook
-                    } else if (x === "Pine Ridge") {
-                        propOwners = data.pineridge
-                    } else if (x === "Audubon Lake") {
-                        propOwners = data.audubon
-                    }
-                    var propO = ""
-                    if (x === "Glenbrook") {
-                        for (var item in propOwners) {
-                            propO += "<option value=" + `"${item}"` + ">" + `${propOwners[item]}` + "</option>"
+                        if (x === "Glenbrook") {
+                            propNames = data.glenbrook
+                        } else if (x === "Pine Ridge") {
+                            propNames = data.pineridge
+                        } else if (x === "Audubon Lake") {
+                            propNames = data.audubon
                         }
-                    } else {
-                        for (var item of propOwners) {
-                            propO += "<option>" + item + "</option>"
+                        var propN = ""
+                        for (var item of propNames) {
+                            propN += "<option>" + item + "</option>"
                         }
-                    }
 
-                    document.getElementById("PropertyOwner").innerHTML = propO;
-                })
-                .catch(error => console.error(error));
+                        document.getElementById("PropertyName").innerHTML = propN;
+                    })
+                    .catch(error => console.error(error));
+
+                fetch(roamingPath + '\\propertyowners.json')
+                    .then(response => response.json())
+                    .then(data => {
+
+                        if (x === "Glenbrook") {
+                            propOwners = data.glenbrook
+                        } else if (x === "Pine Ridge") {
+                            propOwners = data.pineridge
+                        } else if (x === "Audubon Lake") {
+                            propOwners = data.audubon
+                        }
+                        var propO = ""
+                        if (x === "Glenbrook") {
+                            for (var item in propOwners) {
+                                propO += "<option value=" + `"${item}"` + ">" + `${propOwners[item]}` +
+                                    "</option>"
+                            }
+                        } else {
+                            for (var item of propOwners) {
+                                propO += "<option>" + item + "</option>"
+                            }
+                        }
+
+                        document.getElementById("PropertyOwner").innerHTML = propO;
+                    })
+                    .catch(error => console.error(error));
+            });
         }
 
         getOffice()

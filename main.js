@@ -21,17 +21,53 @@ var leasepath = '';
 const os = require('os');
 const hn = os.hostname();
 const axios = require('axios');
-const settingsFile = path.join(__dirname, '/resources/settings.json');
+const roamingPath = path.join(app.getPath('userData'), 'resources');
+const settingsFilePath = path.join(roamingPath, 'settings.json');
 
 const apptest = false;
 
-const resourcePath = path.join(process.env.HOME + '\\AppData\\Roaming\\lease-gen\\resources');
+function createSettingsFile() {
+  const settingsData = {
+    initSetupData: {
+      initSetupRequired: true,
+      projectID: '',
+      databaseID: '',
+      storageID: '',
+    },
+  };
+
+  fs.writeFile(settingsFilePath, JSON.stringify(settingsData, null, 2), (err) => {
+    if (err) {
+      console.error('Error while creating settings.json:', err);
+      return;
+    }
+    console.log('settings.json has been created successfully.');
+    app.relaunch()
+    app.exit()
+  });
+}
+
+function checkAndCreateSettingsFile() {
+
+  fs.access(settingsFilePath, fs.constants.F_OK, (err) => {
+    if (err) {
+      console.log('settings.json does not exist. Creating now...');
+      createSettingsFile();
+    } else {
+      console.log('settings.json exists.');
+    }
+  });
+}
+
+app.whenReady().then(() => {
+  checkAndCreateSettingsFile();
+});
 
 let appwriteProjectID;
 let appwriteDatabaseID;
 let appwriteStorageID;
 
-fs.readFile(settingsFile, 'utf8', (err, data) => {
+fs.readFile(settingsFilePath, 'utf8', (err, data) => {
   if (err) {
     console.error(err);
     return;
@@ -84,7 +120,7 @@ function logAppwriteProjectID() {
           responseType: 'stream',
         });
 
-        const writer = fs.createWriteStream(path.join(resourcePath, fileName));
+        const writer = fs.createWriteStream(path.join(roamingPath, fileName));
 
         response.data.pipe(writer);
 
@@ -99,8 +135,8 @@ function logAppwriteProjectID() {
     }
 
     async function main() {
-      const file1Path = path.join(resourcePath, 'propertynames.json');
-      const file2Path = path.join(resourcePath, 'propertyowners.json');
+      const file1Path = path.join(roamingPath, 'propertynames.json');
+      const file2Path = path.join(roamingPath, 'propertyowners.json');
 
       // Replace with your actual Appwrite file IDs
       const file1AppwriteId = '641c8a254ed55f1a9f61';
@@ -108,7 +144,7 @@ function logAppwriteProjectID() {
 
       try {
         // Create the resource folder if it doesn't exist
-        await fsp.mkdir(resourcePath, {
+        await fsp.mkdir(roamingPath, {
           recursive: true
         });
 
@@ -178,7 +214,7 @@ function createWindow() {
   Menu.setApplicationMenu(menu);
 
   //Login
-  fs.readFile(settingsFile, 'utf8', (err, data) => {
+  fs.readFile(settingsFilePath, 'utf8', (err, data) => {
     if (err) {
       console.error(err);
       return;
@@ -208,7 +244,7 @@ function createWindow() {
     };
 
     // Write the values to the file
-    fs.writeFile(settingsFile, JSON.stringify({
+    fs.writeFile(settingsFilePath, JSON.stringify({
       initSetupData
     }), 'utf8', (err) => {
       if (err) {
@@ -264,6 +300,10 @@ app.whenReady().then(() => {
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
+
+ipcMain.on("request-roaming-path", (event) => {
+  event.sender.send("receive-roaming-path", roamingPath);
+});
 
 // Recives Lease Data from leasegen.html
 ipcMain.on('leasedata', function (e, leasedata) {
