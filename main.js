@@ -18,7 +18,7 @@ const {
 const roamingPath = path.join(app.getPath('userData'), 'resources');
 const settingsFilePath = path.join(roamingPath, 'settings.json');
 
-const apptest = false;
+const apptest = true;
 
 const {
   checkAndCreateSettingsFile
